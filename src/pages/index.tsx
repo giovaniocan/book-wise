@@ -1,6 +1,21 @@
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 
 export default function Home() {
+  const router = useRouter()
+
+  function LogInWithGoogle() {
+    window.alert('login não ta pronto')
+  }
+
+  function LogInWithGitHub() {
+    window.alert('login não ta pronto')
+  }
+
+  function LogInAsvisitor() {
+    router.push('/home')
+  }
+
   return (
     <div className="h-screen w-screen m-5 flex items-center ">
       <div className="h-full flex items-center justify-center w-2/5 relative  ">
@@ -20,19 +35,28 @@ export default function Home() {
             Faça login ou acesse como visitante
           </span>
           <div className="mt-10 flex flex-col  gap-4 ">
-            <button className=" bg-gray-600 px-6 py-5 flex gap-5 rounded-lg">
+            <button
+              onClick={LogInWithGoogle}
+              className=" bg-gray-600 px-6 py-5 flex gap-5 rounded-lg"
+            >
               <Image src="google-icon.svg" alt="" width={32} height={32} />
               <span className="text-lg font-bold text-gray-200">
                 Entrar com Google
               </span>
             </button>
-            <button className=" bg-gray-600 px-6 py-5 flex gap-5 rounded-lg">
+            <button
+              onClick={LogInWithGitHub}
+              className=" bg-gray-600 px-6 py-5 flex gap-5 rounded-lg"
+            >
               <Image src="github-icon.svg" alt="" width={32} height={32} />
               <span className="text-lg font-bold text-gray-200">
                 Entrar com GitHub
               </span>
             </button>
-            <button className=" bg-gray-600 px-6 py-5 flex gap-5 rounded-lg">
+            <button
+              onClick={LogInAsvisitor}
+              className=" bg-gray-600 px-6 py-5 flex gap-5 rounded-lg"
+            >
               <Image src="RocketLaunch.svg" alt="" width={32} height={32} />
               <span className="text-lg font-bold text-gray-200">
                 Entrar como visitante

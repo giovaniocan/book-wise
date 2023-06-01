@@ -12,7 +12,10 @@
     -ms-overflow-style: none;
   }
   body {
-    @apply bg-gray-800  h-screen w-screen text-gray-100 ;
+    @apply bg-gray-800  text-gray-100 ;
   }
 }
 
+:focus {
+  outline-color: #181C2A;
+}
