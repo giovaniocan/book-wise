@@ -17,18 +17,18 @@ export default function Home() {
   }
 
   return (
-    <div className="h-screen w-screen m-5 flex items-center ">
-      <div className="h-full flex items-center justify-center w-2/5 relative  ">
+    <div className="h-screen w-screen flex p-5 items-center ">
+      <div className="h-full flex items-center  justify-center w-2/5 relative ">
         <Image
           className="absolute h-full w-full opacity-75 rounded-2xl "
           src="/Login-image.png"
           alt="Login Image"
-          width={500}
-          height={500}
+          width={600}
+          height={600}
         />
         <Image src="/logo.svg" alt="Logo" width={232} height={48} />
       </div>
-      <div className="h-full w-3/5  flex items-center justify-center">
+      <div className="h-full w-3/5 -mt-28  flex items-center justify-center">
         <div className="w-80">
           <h2 className="text-2xl font-bold">Boas Vindas !</h2>
           <span className="text-base text-gray-200 ">
