@@ -12,6 +12,7 @@
     -ms-overflow-style: none;
   }
   body {
-    @apply bg-gray-800 h-screen text-gray-100 max-w-screen-2xl mt-0 mx-auto p-5;
+    @apply bg-gray-800  h-screen w-screen text-gray-100 ;
   }
 }
+
