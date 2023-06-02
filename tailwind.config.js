@@ -7,10 +7,6 @@ module.exports = {
   ],
   theme: {
     extend: {
-      gradientColorStops: {
-        'gradient-vertical': ['#7FD1CC', '#9694F5'],
-        'gradient-horizontal': ['#7FD1CC', '#9694F5'],
-      },
       colors: {
         transparent: 'rgba(0,0,0,1)',
         white: '#FFFFFF',

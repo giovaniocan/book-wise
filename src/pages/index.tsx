@@ -26,9 +26,15 @@ export default function Home() {
           width={600}
           height={600}
         />
-        <Image src="/logo.svg" alt="Logo" width={232} height={48} />
+        <Image
+          className="absolute"
+          src="/logo.svg"
+          alt="Logo"
+          width={232}
+          height={48}
+        />
       </div>
-      <div className="h-full w-3/5 -mt-28  flex items-center justify-center">
+      <div className="  h-full w-3/5 -mt-28  flex items-center justify-center">
         <div className="w-80">
           <h2 className="text-2xl font-bold">Boas Vindas !</h2>
           <span className="text-base text-gray-200 ">
