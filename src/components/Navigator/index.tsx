@@ -24,15 +24,15 @@ export function Navigator() {
   }
 
   return (
-    <div className="  h-full relative flex items-start ">
-      <Image
-        className=" absolute opacity-75  -left-48 h-full   rounded-2xl "
+    <div className="  h-full  relative flex items-start ">
+      {/* <Image
+        className=" absolute opacity-75  -left-48 h-full    "
         src="/sidebar-bg.svg"
         alt="Login Image"
         width={600}
         height={600}
-      />
-      <div className=" absolute flex pl-10 h-full flex-col  items-center justify-between ">
+      /> */}
+      <div className=" bg-[url('/sidebar.png')] flex rounded-2xl px-10 h-full flex-col  items-center justify-between ">
         <div className="pt-10 flex flex-col gap-16">
           <Image src="/logo.svg" alt="Logo" width={128} height={48} />
 
