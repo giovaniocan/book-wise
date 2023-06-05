@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import { StarRating } from '../StarRating'
 
 export function ReviewHeader() {
   return (
@@ -16,7 +17,9 @@ export function ReviewHeader() {
           <span className="text-sm text-gray-400 ">data</span>
         </div>
       </div>
-      <div>estrelas</div>
+      <div>
+        <StarRating rating={4} />
+      </div>
     </div>
   )
 }
