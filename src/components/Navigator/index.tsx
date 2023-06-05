@@ -10,8 +10,7 @@ export function Navigator() {
     router.push('/home')
   }
   function handleToExplorePAge() {
-    /* router.push('/explore') */
-    window.alert('explore page')
+    router.push('/explorer')
   }
   function handleToProfilePage() {
     /* router.push('/profile') */
@@ -44,7 +43,7 @@ export function Navigator() {
             <button
               onClick={handleToExplorePAge}
               className={`flex gap-3 pl-4 ${
-                pathname === '/explore'
+                pathname === '/explorer'
                   ? 'border-l-4 border-x-purple-100'
                   : 'pl-5 text-gray-400'
               } `}
