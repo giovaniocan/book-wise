@@ -1,4 +1,5 @@
 import { Navigator } from '@/components/Navigator'
+import { PopularBooks } from '@/components/PopularBooks'
 import { RecentRatings } from '@/components/RecentsRatings'
 import { ChartLineUp } from '@phosphor-icons/react'
 
@@ -13,7 +14,9 @@ export default function Home() {
         </div>
         <div className="flex gap-16">
           <RecentRatings />
-          <div className="w-1/4 bg-green-300 ">teste</div>
+          <div className="w-1/3">
+            <PopularBooks />
+          </div>
         </div>
       </div>
     </div>
