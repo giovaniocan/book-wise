@@ -24,7 +24,7 @@ export function Navigator() {
   }
 
   return (
-    <div className="  h-full flex items-start ">
+    <div className="  h-full flex p-5 ">
       <div className=" bg-[url('/sidebar.png')] flex rounded-2xl px-14 h-full flex-col  items-center justify-between ">
         <div className="pt-10 flex flex-col gap-16">
           <Image src="/logo.svg" alt="Logo" width={128} height={48} />
