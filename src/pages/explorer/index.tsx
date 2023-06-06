@@ -1,3 +1,4 @@
+import { BookCard } from '@/components/BookCard'
 import { Navigator } from '@/components/Navigator'
 import { SearchBar } from '@/components/SearchBar'
 import { Filters } from '@/components/filters'
@@ -19,6 +20,11 @@ export default function Home() {
         </div>
 
         <Filters />
+        <div className="flex ">
+          <BookCard />
+          <BookCard />
+          <BookCard />
+        </div>
       </div>
     </div>
   )

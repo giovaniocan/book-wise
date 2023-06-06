@@ -13,7 +13,7 @@ export function BookCard() {
       />
       <div className="flex flex-col justify-between">
         <div className="flex flex-col">
-          <h4 className="font-bold text-base">Nome do livro</h4>
+          <h4 className="font-bold text-base line-clamp-2">Nome do livro</h4>
           <span className="text-sm text-gray-400">Autor</span>
         </div>
         <div>
