@@ -1,5 +1,6 @@
 import { Navigator } from '@/components/Navigator'
-import { Binoculars, MagnifyingGlass } from 'phosphor-react'
+import { SearchBar } from '@/components/SearchBar'
+import { Binoculars } from 'phosphor-react'
 
 export default function Home() {
   return (
@@ -11,13 +12,8 @@ export default function Home() {
             <Binoculars color="#50B2C0" size={32} />
             <h2 className="font-bold text-2xl">Explorar</h2>
           </div>
-          <div className="border border-gray-500 rounded-md p-2 flex items-center justify-between px-5 py-4 gap-2">
-            <input
-              placeholder="Buscar livro ou autor"
-              type="text"
-              className="w-96 bg-gray-800 focus:outline-none placeholder:text-gray-400  outline-none"
-            />
-            <MagnifyingGlass size={20} color="#303F73" />
+          <div className="w-96">
+            <SearchBar placeholder="Buscar livro ou autor" />
           </div>
         </div>
       </div>
