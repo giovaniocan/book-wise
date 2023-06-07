@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { BookOpen, BookmarkSimple, Books, UserList } from 'phosphor-react'
 
-export function ProfileCard() {
+export function ProfileInfo() {
   return (
     <div className="w-full border-l border-gray-700 flex flex-col items-center ">
       <div className="flex  flex-col items-center  ">

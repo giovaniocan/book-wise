@@ -1,5 +1,6 @@
 import { Navigator } from '@/components/Navigator'
-import { ProfileCard } from '@/components/ProfileCard'
+import { ProfileBookCard } from '@/components/ProfileBookCard'
+import { ProfileInfo } from '@/components/ProfileInfo'
 import { SearchBar } from '@/components/SearchBar'
 import { User } from 'phosphor-react'
 
@@ -14,9 +15,18 @@ export default function Profile() {
             <h2 className="font-bold text-2xl">Perfil</h2>
           </div>
           <div className="flex gap-16">
-            <SearchBar placeholder="Buscar livro avaliado" />
+            <div className="w-full flex flex-col gap-8">
+              <SearchBar placeholder="Buscar livro avaliado" />
+              <div className="w-full flex flex-col gap-6">
+                <ProfileBookCard />
+                <ProfileBookCard />
+                <ProfileBookCard />
+                <ProfileBookCard />
+              </div>
+            </div>
+
             <div className="w-96">
-              <ProfileCard />
+              <ProfileInfo />
             </div>
           </div>
         </div>
