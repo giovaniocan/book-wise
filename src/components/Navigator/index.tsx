@@ -13,8 +13,7 @@ export function Navigator() {
     router.push('/explorer')
   }
   function handleToProfilePage() {
-    /* router.push('/profile') */
-    window.alert('profile page')
+    router.push('/profile')
   }
 
   function handleSignIn() {
