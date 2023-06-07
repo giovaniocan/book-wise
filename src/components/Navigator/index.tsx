@@ -31,7 +31,7 @@ export function Navigator() {
           <div className="flex flex-col gap-4">
             <button
               onClick={handleToHomePAge}
-              className={`flex gap-3 pl-4  ${
+              className={`flex gap-3 pl-4 hover:text-gray-100  ${
                 pathname === '/home'
                   ? 'border-l-4 border-x-purple-100'
                   : 'pl-5 text-gray-400'
@@ -42,7 +42,7 @@ export function Navigator() {
             </button>
             <button
               onClick={handleToExplorePAge}
-              className={`flex gap-3 pl-4 ${
+              className={`flex gap-3 pl-4 hover:text-gray-100 ${
                 pathname === '/explorer'
                   ? 'border-l-4 border-x-purple-100'
                   : 'pl-5 text-gray-400'
@@ -53,7 +53,7 @@ export function Navigator() {
             </button>
             <button
               onClick={handleToProfilePage}
-              className={`flex gap-3 pl-4 ${
+              className={`flex gap-3 pl-4 hover:text-gray-100 ${
                 pathname === '/profile'
                   ? 'border-l-4 border-x-purple-100'
                   : 'pl-5 text-gray-400'
