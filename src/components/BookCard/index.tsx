@@ -1,5 +1,6 @@
 import Image from 'next/image'
-import { StarRating } from '../StarRating'
+
+import { StarRatingWithRate } from '../StarRating/StarRatingWithRate'
 
 interface BookCardProps {
   isIntheFeed?: boolean
@@ -25,7 +26,7 @@ export function BookCard({ isIntheFeed, wasRead }: BookCardProps) {
             <span className="text-sm text-gray-400">Autor</span>
           </div>
           <div>
-            <StarRating rating={4} />
+            <StarRatingWithRate rating={3} />
           </div>
         </div>
       </div>

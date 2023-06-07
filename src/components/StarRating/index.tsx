@@ -1,20 +1,31 @@
+import React, { useState } from 'react'
 import { Star } from 'phosphor-react'
 
-interface StarRatingProps {
-  rating: number
-}
+export function StarRating() {
+  const [rating, setRating] = useState(0)
 
-export function StarRating({ rating }: StarRatingProps) {
-  const starsCollored = rating
-  const starsEmpty = 5 - starsCollored
+  function handleClickStars(selectedRating: number) {
+    if (rating === selectedRating) {
+      setRating(0)
+    } else {
+      setRating(selectedRating)
+    }
+  }
 
   return (
-    <div className="flex gap-1">
-      {Array.from(Array(starsCollored), (e, i) => (
-        <Star size={16} weight="fill" key={i} color="#8381D9" />
-      ))}
-      {Array.from(Array(starsEmpty), (e, i) => (
-        <Star size={16} weight="fill" key={i} />
+    <div className="flex items-center gap-1">
+      {[1, 2, 3, 4, 5].map((star) => (
+        <div
+          key={star}
+          onClick={() => handleClickStars(star)}
+          className="cursor-pointer"
+        >
+          {star <= rating ? (
+            <Star weight="fill" color="#8381D9" size={16} />
+          ) : (
+            <Star color="#8381D9" size={16} />
+          )}
+        </div>
       ))}
     </div>
   )

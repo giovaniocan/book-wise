@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { StarRating } from '../StarRating'
+import { StarRatingWithRate } from '../StarRating/StarRatingWithRate'
 
 export function ProfileBookCard() {
   return (
@@ -20,7 +20,7 @@ export function ProfileBookCard() {
               <span className="text-sm text-gray-400">Autor</span>
             </div>
             <div>
-              <StarRating rating={4} />
+              <StarRatingWithRate rating={2} />
             </div>
           </div>
         </div>

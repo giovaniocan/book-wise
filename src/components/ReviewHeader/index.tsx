@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { StarRating } from '../StarRating'
+import { StarRatingWithRate } from '../StarRating/StarRatingWithRate'
 
 export function ReviewHeader() {
   return (
@@ -18,7 +18,7 @@ export function ReviewHeader() {
         </div>
       </div>
       <div>
-        <StarRating rating={4} />
+        <StarRatingWithRate rating={3} />
       </div>
     </div>
   )
