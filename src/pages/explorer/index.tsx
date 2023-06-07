@@ -20,10 +20,13 @@ export default function Home() {
         </div>
 
         <Filters />
-        <div className="flex ">
-          <BookCard />
-          <BookCard />
-          <BookCard />
+        <div className=" w-full  flex gap-7   flex-wrap ">
+          <BookCard isIntheFeed wasRead />
+          <BookCard isIntheFeed />
+          <BookCard isIntheFeed />
+          <BookCard isIntheFeed />
+          <BookCard isIntheFeed wasRead />
+          <BookCard isIntheFeed />
         </div>
       </div>
     </div>
