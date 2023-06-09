@@ -1,6 +1,6 @@
-import Image from 'next/image'
-
-import { StarRatingWithRate } from '../StarRating/StarRatingWithRate'
+import * as Dialog from '@radix-ui/react-dialog'
+import { ContentOfBookCard } from './ContentOfBookCard'
+/* import { ContentOfBookCard } from './ContentOfBookCard' */
 
 interface BookCardProps {
   isIntheFeed?: boolean
@@ -9,32 +9,26 @@ interface BookCardProps {
 
 export function BookCard({ isIntheFeed, wasRead }: BookCardProps) {
   return (
-    <div className="flex   bg-gray-700 relative rounded-lg">
-      <div className=" flex gap-5 p-5">
-        <Image
-          src="https://github.com/giovaniocan.png"
-          height={94}
-          width={85}
-          alt="capa do livro"
-          className={`h-[6.875rem] w-20 ${
-            isIntheFeed && 'w-[7.375rem] h-[10.3rem]'
-          }`}
-        />
-        <div className="flex flex-col justify-between ">
-          <div className="flex w-64 flex-col">
-            <h4 className="font-bold text-base line-clamp-2">Nome do livro</h4>
-            <span className="text-sm text-gray-400">Autor</span>
-          </div>
-          <div>
-            <StarRatingWithRate rating={3} />
-          </div>
+    <Dialog.Root>
+      <Dialog.Trigger asChild>
+        <div>
+          <ContentOfBookCard isIntheFeed={isIntheFeed} wasRead={wasRead} />
         </div>
-      </div>
-      {wasRead && (
-        <span className="absolute top-0 right-0 bg-green-300 text-xs font-bold px-3 rounded-tr-md rounded-bl-lg py-1 text-green-100">
-          Lido
-        </span>
-      )}
-    </div>
+      </Dialog.Trigger>
+      <Dialog.Portal>
+        <Dialog.Overlay className=" bg-black/60 data-[state=open]:animate-overlayShow fixed inset-0" />
+        <Dialog.Content className="data-[state=open]:animate-contentShow fixed top-0 right-0  w-[45.3%] h-full rounded-[6px] bg-gray-800  focus:outline-none">
+          <h1>Essa é a minha modal</h1>
+          <Dialog.Close asChild>
+            <button
+              className="text-violet11 hover:bg-violet4 focus:shadow-violet7 absolute top-[10px] right-[10px] inline-flex h-[25px] w-[25px] appearance-none items-center justify-center rounded-full focus:shadow-[0_0_0_2px] focus:outline-none"
+              aria-label="Close"
+            >
+              X
+            </button>
+          </Dialog.Close>
+        </Dialog.Content>
+      </Dialog.Portal>
+    </Dialog.Root>
   )
 }

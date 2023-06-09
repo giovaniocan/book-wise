@@ -4,7 +4,7 @@ import { SearchBar } from '@/components/SearchBar'
 import { Filters } from '@/components/filters'
 import { Binoculars } from 'phosphor-react'
 
-export default function Home() {
+export default function Explorer() {
   return (
     <div className="h-screen w-screen  flex  ">
       <Navigator />
