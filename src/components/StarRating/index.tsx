@@ -21,9 +21,9 @@ export function StarRating() {
           className="cursor-pointer"
         >
           {star <= rating ? (
-            <Star weight="fill" color="#8381D9" size={16} />
+            <Star weight="fill" color="#8381D9" size={28} />
           ) : (
-            <Star color="#8381D9" size={16} />
+            <Star color="#8381D9" size={28} />
           )}
         </div>
       ))}
