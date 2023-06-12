@@ -3,7 +3,7 @@ import { StarRatingWithRate } from '../StarRating/StarRatingWithRate'
 
 export function ReviewHeader() {
   return (
-    <div className="flex justify-between items-center">
+    <div className="flex w-full justify-between items-center">
       <div className="flex gap-4">
         <Image
           className="rounded-full p-[2px]  bg-gradient-horizontal"
