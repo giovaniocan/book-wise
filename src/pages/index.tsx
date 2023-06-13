@@ -1,24 +1,29 @@
 import { signIn, useSession } from 'next-auth/react'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 
 export default function Home() {
   const router = useRouter()
+  const session = useSession()
 
   function LogInWithGitHub() {
     signIn('github')
   }
 
-  function LogInWithGoogle() {
-    signIn('google')
-    router.push('/home')
+  async function LogInWithGoogle() {
+    await signIn('google')
   }
 
   function LogInAsvisitor() {
     router.push('/home')
   }
 
-  const session = useSession()
+  useEffect(() => {
+    if (session.status === 'authenticated') {
+      router.push('/home')
+    }
+  }, [session, router])
 
   return (
     <div className="h-screen w-screen flex p-5 items-center ">
@@ -72,8 +77,8 @@ export default function Home() {
                 Entrar como visitante
               </span>
             </button>
-            {JSON.stringify(session.data)}
           </div>
+          {JSON.stringify(session)}
         </div>
       </div>
     </div>
