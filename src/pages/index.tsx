@@ -20,9 +20,13 @@ export default function Home() {
   }
 
   useEffect(() => {
-    if (session.status === 'authenticated') {
-      router.push('/home')
+    async function createUser() {
+      if (session.status === 'authenticated') {
+        router.push('/home')
+      }
     }
+
+    createUser()
   }, [session, router])
 
   return (
