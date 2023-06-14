@@ -25,18 +25,16 @@ export default function Home() {
     async function createUser() {
       if (session.status === 'authenticated') {
         try {
-          const teste = await api.post('/users', {
+          await api.post('/users', {
             name: session.data?.user?.name,
             email: session.data?.user?.email,
             avatar_url: session.data?.user?.image,
           })
-          console.log(teste)
-          console.log(teste.data)
 
           router.push('/home')
         } catch (error) {
           if (error instanceof AxiosError && error?.response?.data?.message) {
-            alert(error.response.data.message)
+            router.push('/home')
             return
           }
 

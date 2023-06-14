@@ -1,10 +1,14 @@
 import { Binoculars, ChartLineUp, SignIn, User } from '@phosphor-icons/react'
+import { signIn, signOut, useSession } from 'next-auth/react'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
+import { SignOut } from 'phosphor-react'
 
 export function Navigator() {
   const router = useRouter()
   const { pathname } = router
+  const { data: session } = useSession()
+  const user = session?.user
 
   function handleToHomePAge() {
     router.push('/home')
@@ -16,9 +20,12 @@ export function Navigator() {
     router.push('/profile')
   }
 
-  function handleSignIn() {
-    /* router.push('/signin') */
-    window.alert('fazendo o login')
+  async function handleSignIn() {
+    await signIn('google')
+  }
+
+  async function handleSignOut() {
+    await signOut()
   }
 
   return (
@@ -50,25 +57,45 @@ export function Navigator() {
               <Binoculars size={24} />
               <span className="text-base font-bold">Explorar</span>
             </button>
-            <button
-              onClick={handleToProfilePage}
-              className={`flex gap-3 pl-4 hover:text-gray-100 ${
-                pathname === '/profile'
-                  ? 'border-l-4 border-x-purple-100'
-                  : 'pl-5 text-gray-400'
-              } `}
-            >
-              <User size={24} />
-              <span className="text-base font-bold">Perfil</span>
-            </button>
+            {user && (
+              <button
+                onClick={handleToProfilePage}
+                className={`flex gap-3 pl-4 hover:text-gray-100 ${
+                  pathname === '/profile'
+                    ? 'border-l-4 border-x-purple-100'
+                    : 'pl-5 text-gray-400'
+                } `}
+              >
+                <User size={24} />
+                <span className="text-base font-bold">Perfil</span>
+              </button>
+            )}
           </div>
         </div>
-        <div className=" flex pb-6 items-center gap-4 ">
-          <h3>Fazer Login</h3>
-          <button onClick={handleSignIn}>
-            <SignIn color="#50B2C0" />
-          </button>
-        </div>
+        {!user ? (
+          <div className=" flex pb-6 items-center gap-4 ">
+            <h3>Fazer Login</h3>
+            <button onClick={handleSignIn}>
+              <SignIn size={20} color="#50B2C0" />
+            </button>
+          </div>
+        ) : (
+          <div className="flex gap-3  pb-6 items-center ">
+            <Image
+              src="https://github.com/giovaniocan.png"
+              height={40}
+              width={40}
+              alt="capa do livro"
+              className=" rounded-full p-[2px]  bg-gradient-horizontal"
+            />
+            <span className="text-sm text-gray-200 whitespace-nowrap overflow-hidden">
+              <span className="text-truncate">{user.name}</span>
+            </span>
+            <button onClick={handleSignOut}>
+              <SignOut size={20} color="#F75A68" />
+            </button>
+          </div>
+        )}
       </div>
     </aside>
   )
