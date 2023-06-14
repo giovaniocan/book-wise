@@ -2,16 +2,27 @@ import { StarRatingWithRate } from '@/components/StarRating/StarRatingWithRate'
 import Image from 'next/image'
 
 interface BookCardProps {
+  image: string
+  title: string
+  author: string
+  rating: number
   isIntheFeed?: boolean
   wasRead?: boolean
 }
 
-export function ContentOfBookCard({ isIntheFeed, wasRead }: BookCardProps) {
+export function ContentOfBookCard({
+  isIntheFeed,
+  wasRead,
+  author,
+  image,
+  rating,
+  title,
+}: BookCardProps) {
   return (
     <div className="flex cursor-pointer  bg-gray-700 relative rounded-lg">
       <div className=" flex gap-5 p-5">
         <Image
-          src="https://github.com/giovaniocan.png"
+          src={image}
           height={94}
           width={85}
           alt="capa do livro"
@@ -21,11 +32,11 @@ export function ContentOfBookCard({ isIntheFeed, wasRead }: BookCardProps) {
         />
         <div className="flex flex-col justify-between ">
           <div className="flex w-64 flex-col items-start">
-            <h4 className="font-bold text-base line-clamp-2">Nome do livro</h4>
-            <span className="text-sm text-gray-400">Autor</span>
+            <h4 className="font-bold text-base line-clamp-2 pr-11 ">{title}</h4>
+            <span className="text-sm text-gray-400">{author}</span>
           </div>
           <div>
-            <StarRatingWithRate rating={3} />
+            <StarRatingWithRate rating={rating} />
           </div>
         </div>
       </div>

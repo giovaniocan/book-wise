@@ -1,8 +1,18 @@
 import { CaretRight } from 'phosphor-react'
-import { BookCard } from '../BookCard'
+import { BookCard, BookCardType } from '../BookCard'
 import Link from 'next/link'
+import { useQuery } from '@tanstack/react-query'
+import { api } from '@/lib/axios'
 
 export function PopularBooks() {
+  const { data: popularBooks } = useQuery<BookCardType[]>(
+    ['popularBooks'],
+    async () => {
+      const { data } = await api.get('/books/popularBooks')
+      return data
+    },
+  )
+
   return (
     <div className=" w-full flex flex-col gap-4">
       <div className="flex items-center justify-between">
@@ -15,10 +25,9 @@ export function PopularBooks() {
         </Link>
       </div>
       <div className="flex flex-col gap-3 ">
-        <BookCard />
-        <BookCard />
-        <BookCard />
-        <BookCard />
+        {popularBooks?.map((book) => {
+          return <BookCard key={book.id} book={book} />
+        })}
       </div>
     </div>
   )

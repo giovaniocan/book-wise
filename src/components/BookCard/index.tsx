@@ -4,17 +4,34 @@ import { X } from 'phosphor-react'
 import { BookDetail } from './BookDetail'
 import { CommentList } from '../CommentList'
 
+export type BookCardType = {
+  id: string
+  cover_url: string
+  name: string
+  author: string
+  avgRating: number
+  total_pages: number
+}
+
 interface BookCardProps {
+  book?: BookCardType
   isIntheFeed?: boolean
   wasRead?: boolean
 }
 
-export function BookCard({ isIntheFeed, wasRead }: BookCardProps) {
+export function BookCard({ isIntheFeed, wasRead, book }: BookCardProps) {
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>
         <div>
-          <ContentOfBookCard isIntheFeed={isIntheFeed} wasRead={wasRead} />
+          <ContentOfBookCard
+            image={book?.cover_url || ''}
+            author={book?.author || ''}
+            title={book?.name || ''}
+            rating={book?.avgRating || 0}
+            isIntheFeed={isIntheFeed}
+            wasRead={wasRead}
+          />
         </div>
       </Dialog.Trigger>
       <Dialog.Portal>
