@@ -1,6 +1,7 @@
 import { Binoculars, ChartLineUp, SignIn, User } from '@phosphor-icons/react'
 import { signIn, signOut, useSession } from 'next-auth/react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { SignOut } from 'phosphor-react'
 
@@ -9,16 +10,6 @@ export function Navigator() {
   const { pathname } = router
   const { data: session } = useSession()
   const user = session?.user
-
-  function handleToHomePAge() {
-    router.push('/home')
-  }
-  function handleToExplorePAge() {
-    router.push('/explorer')
-  }
-  function handleToProfilePage() {
-    router.push('/profile')
-  }
 
   async function handleSignIn() {
     await signIn('google')
@@ -35,8 +26,8 @@ export function Navigator() {
           <Image src="/logo.svg" alt="Logo" width={128} height={48} />
 
           <div className="flex flex-col gap-4">
-            <button
-              onClick={handleToHomePAge}
+            <Link
+              href="/home"
               className={`flex gap-3 pl-4 hover:text-gray-100  ${
                 pathname === '/home'
                   ? 'border-l-4 border-x-purple-100'
@@ -45,9 +36,9 @@ export function Navigator() {
             >
               <ChartLineUp size={24} />
               <span className="text-base font-bold">Início</span>
-            </button>
-            <button
-              onClick={handleToExplorePAge}
+            </Link>
+            <Link
+              href="/explorer"
               className={`flex gap-3 pl-4 hover:text-gray-100 ${
                 pathname === '/explorer'
                   ? 'border-l-4 border-x-purple-100'
@@ -56,10 +47,10 @@ export function Navigator() {
             >
               <Binoculars size={24} />
               <span className="text-base font-bold">Explorar</span>
-            </button>
+            </Link>
             {user && (
-              <button
-                onClick={handleToProfilePage}
+              <Link
+                href="/profile"
                 className={`flex gap-3 pl-4 hover:text-gray-100 ${
                   pathname === '/profile'
                     ? 'border-l-4 border-x-purple-100'
@@ -68,7 +59,7 @@ export function Navigator() {
               >
                 <User size={24} />
                 <span className="text-base font-bold">Perfil</span>
-              </button>
+              </Link>
             )}
           </div>
         </div>

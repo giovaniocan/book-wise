@@ -2,6 +2,7 @@ import { api } from '@/lib/axios'
 import { AxiosError } from 'axios'
 import { signIn, useSession } from 'next-auth/react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 
@@ -15,10 +16,6 @@ export default function Home() {
 
   async function LogInWithGoogle() {
     await signIn('google')
-  }
-
-  function LogInAsvisitor() {
-    router.push('/home')
   }
 
   useEffect(() => {
@@ -89,15 +86,15 @@ export default function Home() {
                 Entrar com GitHub
               </span>
             </button>
-            <button
-              onClick={LogInAsvisitor}
+            <Link
+              href="/home"
               className=" bg-gray-600 px-6 py-5 flex gap-5 rounded-lg"
             >
               <Image src="RocketLaunch.svg" alt="" width={32} height={32} />
               <span className="text-lg font-bold text-gray-200">
                 Entrar como visitante
               </span>
-            </button>
+            </Link>
           </div>
           {JSON.stringify(session)}
           {session.data?.user.image && (

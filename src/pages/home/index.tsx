@@ -5,7 +5,6 @@ import { ChartLineUp } from '@phosphor-icons/react'
 import { useSession } from 'next-auth/react'
 
 export default function Home() {
-  const session = useSession()
   return (
     <div className="h-screen w-screen  flex  ">
       <Navigator />
