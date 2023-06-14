@@ -1,3 +1,5 @@
+import { api } from '@/lib/axios'
+import { AxiosError } from 'axios'
 import { signIn, useSession } from 'next-auth/react'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
@@ -22,7 +24,24 @@ export default function Home() {
   useEffect(() => {
     async function createUser() {
       if (session.status === 'authenticated') {
-        router.push('/home')
+        try {
+          const teste = await api.post('/users', {
+            name: session.data?.user?.name,
+            email: session.data?.user?.email,
+            avatar_url: session.data?.user?.image,
+          })
+          console.log(teste)
+          console.log(teste.data)
+
+          router.push('/home')
+        } catch (error) {
+          if (error instanceof AxiosError && error?.response?.data?.message) {
+            alert(error.response.data.message)
+            return
+          }
+
+          console.error(error)
+        }
       }
     }
 
@@ -83,6 +102,9 @@ export default function Home() {
             </button>
           </div>
           {JSON.stringify(session)}
+          {session.data?.user.image && (
+            <img src={session.data?.user.image} alt="" />
+          )}
         </div>
       </div>
     </div>
