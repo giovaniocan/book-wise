@@ -26,7 +26,7 @@ export function RatingCard({
   function toggleReadMore() {
     setIsReadMore(!isReadMore)
   }
-  const maxDescriptionLength = 31.75 * 16
+  const maxDescriptionLength = 508
   return (
     <div className="flex flex-col gap-8 p-6 bg-gray-700 rounded-lg">
       <ReviewHeader
