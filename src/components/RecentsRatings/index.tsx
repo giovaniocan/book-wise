@@ -10,6 +10,7 @@ export function RecentRatings() {
       return data
     },
   )
+
   return (
     <div className="w-full flex flex-col gap-4">
       <h3 className="text-sm">Avaliações mais recentes</h3>

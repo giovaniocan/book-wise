@@ -9,7 +9,7 @@ export type RatingCardWithAuthorAndBooks = {
   user: User
   book: Book
   rate: number
-  created_at: Date
+  created_at: string
   id?: string
   description: string
 }
