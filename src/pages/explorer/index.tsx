@@ -1,10 +1,16 @@
-import { BookCard } from '@/components/BookCard'
+import { BookCard, BookCardType } from '@/components/BookCard'
 import { Navigator } from '@/components/Navigator'
 import { SearchBar } from '@/components/SearchBar'
 import { Filters } from '@/components/filters'
+import { api } from '@/lib/axios'
+import { useQuery } from '@tanstack/react-query'
 import { Binoculars } from 'phosphor-react'
 
 export default function Explorer() {
+  const { data: books } = useQuery<BookCardType[]>(['books'], async () => {
+    const { data } = await api.get('/books')
+    return data
+  })
   return (
     <div className="h-screen w-screen  flex  ">
       <Navigator />
@@ -21,12 +27,9 @@ export default function Explorer() {
 
         <Filters />
         <div className=" w-full  flex gap-7   flex-wrap ">
-          <BookCard isIntheFeed wasRead />
-          <BookCard isIntheFeed />
-          <BookCard isIntheFeed />
-          <BookCard isIntheFeed />
-          <BookCard isIntheFeed wasRead />
-          <BookCard isIntheFeed />
+          {books?.map((book) => {
+            return <BookCard key={book.id} isIntheFeed book={book} />
+          })}
         </div>
       </div>
     </div>

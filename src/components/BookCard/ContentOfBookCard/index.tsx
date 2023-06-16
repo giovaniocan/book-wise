@@ -27,7 +27,7 @@ export function ContentOfBookCard({
           width={85}
           alt="capa do livro"
           className={`h-[6.875rem] w-20 ${
-            isIntheFeed && 'w-[7.375rem] h-[10.3rem]'
+            isIntheFeed && 'w-[7.375rem] h-[10.5rem]'
           }`}
         />
         <div className="flex flex-col justify-between ">

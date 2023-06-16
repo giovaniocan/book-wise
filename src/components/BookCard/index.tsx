@@ -4,6 +4,11 @@ import { X } from 'phosphor-react'
 import { BookDetail } from './BookDetail'
 import { CommentList } from '../CommentList'
 
+interface Category {
+  id: string
+  name: string
+}
+
 export type BookCardType = {
   id: string
   cover_url: string
@@ -11,6 +16,7 @@ export type BookCardType = {
   author: string
   avgRating: number
   total_pages: number
+  categories: Category[]
 }
 
 interface BookCardProps {
@@ -20,6 +26,7 @@ interface BookCardProps {
 }
 
 export function BookCard({ isIntheFeed, wasRead, book }: BookCardProps) {
+  console.log(book?.categories.map((cat) => cat.name))
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>
