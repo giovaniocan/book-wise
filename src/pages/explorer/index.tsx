@@ -48,11 +48,18 @@ export default function Explorer() {
         </div>
 
         <Filters handleCategoryChange={handleCategoriesChange} />
-        <div className=" w-full  flex gap-7   flex-wrap ">
-          {filteredBooks?.map((book) => {
-            return <BookCard key={book.id} isIntheFeed book={book} />
-          })}
-        </div>
+        {filteredBooks && filteredBooks.length > 0 ? (
+          <div className=" w-full  flex gap-7   flex-wrap ">
+            {filteredBooks?.map((book) => {
+              return <BookCard key={book.id} isIntheFeed book={book} />
+            })}
+          </div>
+        ) : (
+          <div className="w-full h-full flex flex-col gap-4 items-center justify-center">
+            <h2 className="font-bold text-3xl">Nenhum livro encontrado</h2>
+            <h3>tente realizar outra pesquisa</h3>
+          </div>
+        )}
       </div>
     </div>
   )
