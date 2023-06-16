@@ -33,6 +33,10 @@ export default function Explorer() {
     )
   })
 
+  function handleInputValue(data: string) {
+    console.log(data)
+  }
+
   return (
     <div className="h-screen w-screen  flex  ">
       <Navigator />
@@ -43,7 +47,10 @@ export default function Explorer() {
             <h2 className="font-bold text-2xl">Explorar</h2>
           </div>
           <div className="w-96">
-            <SearchBar placeholder="Buscar livro ou autor" />
+            <SearchBar
+              handleInputName={handleInputValue}
+              placeholder="Buscar livro ou autor"
+            />
           </div>
         </div>
 
