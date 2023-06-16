@@ -3,11 +3,7 @@ import { ContentOfBookCard } from './ContentOfBookCard'
 import { X } from 'phosphor-react'
 import { BookDetail } from './BookDetail'
 import { CommentList } from '../CommentList'
-
-interface Category {
-  id: string
-  name: string
-}
+import { Category } from '@prisma/client'
 
 export type BookCardType = {
   id: string
@@ -26,7 +22,6 @@ interface BookCardProps {
 }
 
 export function BookCard({ isIntheFeed, wasRead, book }: BookCardProps) {
-  console.log(book?.categories.map((cat) => cat.name))
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>

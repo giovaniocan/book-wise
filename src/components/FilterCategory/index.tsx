@@ -3,17 +3,23 @@ import { useState } from 'react'
 interface FilterCategoryProps {
   defaultSelected?: boolean
   name: string
+  handleCategoriesChange: (name: string) => void
 }
 
-export function FilterCategory({ name, defaultSelected }: FilterCategoryProps) {
+export function FilterCategory({
+  name,
+  defaultSelected,
+  handleCategoriesChange,
+}: FilterCategoryProps) {
   const [isSelected, setIsSelected] = useState(defaultSelected)
 
   function toogleSelected() {
     setIsSelected(!isSelected)
+    handleCategoriesChange(name)
   }
 
   return (
-    <div>
+    <button>
       <input
         type="checkbox"
         id="teste"
@@ -29,6 +35,6 @@ export function FilterCategory({ name, defaultSelected }: FilterCategoryProps) {
       >
         {name}
       </label>
-    </div>
+    </button>
   )
 }
