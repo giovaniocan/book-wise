@@ -17,6 +17,7 @@ export default async function handler(
     },
     include: {
       ratings: true,
+      categories: true,
     },
     take: 4,
   })
@@ -33,7 +34,26 @@ export default async function handler(
     },
   })
 
-  const booksWithAvgRating = books.map((book) => {
+  const booksWithCategories = await Promise.all(
+    books.map(async (book) => {
+      const categories = await Promise.all(
+        book.categories.map(async (category) => {
+          const name = await prisma.category.findUnique({
+            where: {
+              id: category.categoryId,
+            },
+          })
+          return name
+        }),
+      )
+      return {
+        ...book,
+        categories,
+      }
+    }),
+  )
+
+  const booksWithAvgRating = booksWithCategories.map((book) => {
     const bookAvgRating = booksAvgRating.find(
       (avgRating) => avgRating.book_id === book.id,
     )
@@ -41,6 +61,7 @@ export default async function handler(
     return {
       ...bookInfo,
       avgRating: Math.round(bookAvgRating?._avg.rate || 0),
+      totalOfRating: book.ratings.length,
     }
   })
 

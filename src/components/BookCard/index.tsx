@@ -49,7 +49,7 @@ export function BookCard({ isIntheFeed, wasRead, book }: BookCardProps) {
               totalPages={book?.total_pages || 0}
               totalOfRatings={book?.totalOfRating || 0}
             />
-            <CommentList />
+            <CommentList bookId={book?.id || ''} />
             <Dialog.Close>
               <button
                 className=" absolute right-12 top-6 appearance-none "
