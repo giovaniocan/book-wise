@@ -25,6 +25,12 @@ export function CommentArea({ closeCommentArea }: ComemntAreaProps) {
   function handleInputTheValue() {
     console.log(valueOfTextarea)
     console.log(rating)
+    setValueOfTextarea('')
+  }
+
+  function handleCloseCommentArea() {
+    closeCommentArea()
+    setValueOfTextarea('')
   }
 
   return (
@@ -60,7 +66,7 @@ export function CommentArea({ closeCommentArea }: ComemntAreaProps) {
 
         <div className="flex gap-2 justify-end">
           <button
-            onClick={closeCommentArea}
+            onClick={handleCloseCommentArea}
             className="bg-gray-600 p-2 hover:bg-gray-500"
           >
             <X size={24} color="#8381D9" />
