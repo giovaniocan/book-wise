@@ -9,12 +9,18 @@ interface ComemntAreaProps {
 
 export function CommentArea({ closeCommentArea }: ComemntAreaProps) {
   const [valueOfTextarea, setValueOfTextarea] = useState('')
+  const [rating, setRating] = useState(0)
   const maxLenghtOfTextarea = 450
+  console.log(rating)
 
   function handleTextAreaChange(event: ChangeEvent<HTMLTextAreaElement>) {
     if (event.target.value.length <= maxLenghtOfTextarea) {
       setValueOfTextarea(event.target.value)
     }
+  }
+
+  function handleRatingChange(rate: number) {
+    setRating(rate)
   }
 
   return (
@@ -32,7 +38,7 @@ export function CommentArea({ closeCommentArea }: ComemntAreaProps) {
           <h4>nome do usuario</h4>
         </div>
         <div>
-          <StarRating />
+          <StarRating passedRatingNumber={handleRatingChange} />
         </div>
       </div>
       <div className="flex flex-col gap-3 ">
