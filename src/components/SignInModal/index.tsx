@@ -6,7 +6,7 @@ import { signIn, useSession } from 'next-auth/react'
 
 export function SignInModal() {
   const session = useSession()
-  console.log(session.status)
+
   function LogInWithGitHub() {
     signIn('github')
   }

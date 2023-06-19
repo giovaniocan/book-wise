@@ -13,6 +13,7 @@ export type BookCardType = {
   avgRating: number
   total_pages: number
   categories: Category[]
+  totalOfRating: number
 }
 
 interface BookCardProps {
@@ -39,7 +40,15 @@ export function BookCard({ isIntheFeed, wasRead, book }: BookCardProps) {
       <Dialog.Portal>
         <Dialog.Overlay className=" bg-black/60 data-[state=open]:animate-overlayShow  fixed inset-0">
           <Dialog.Content className="data-[state=open]:animate-contentShow fixed top-0 overflow-y-auto right-0 flex flex-col gap-10 w-[45.3%] h-full px-12 pt-16  bg-gray-800  focus:outline-none">
-            <BookDetail />
+            <BookDetail
+              image={book?.cover_url || ''}
+              author={book?.author || ''}
+              nameOfTheBook={book?.name || ''}
+              rate={book?.avgRating || 0}
+              categories={book?.categories || []}
+              totalPages={book?.total_pages || 0}
+              totalOfRatings={book?.totalOfRating || 0}
+            />
             <CommentList />
             <Dialog.Close>
               <button

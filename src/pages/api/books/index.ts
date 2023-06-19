@@ -60,6 +60,7 @@ export default async function handler(
     return {
       ...bookInfo,
       avgRating: Math.round(bookAvgRating?._avg.rate || 0),
+      totalOfRating: book.ratings.length,
     }
   })
 

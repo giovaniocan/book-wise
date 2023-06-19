@@ -23,8 +23,6 @@ export function CommentArea({ closeCommentArea }: ComemntAreaProps) {
   }
 
   function handleInputTheValue() {
-    console.log(valueOfTextarea)
-    console.log(rating)
     setValueOfTextarea('')
   }
 
