@@ -18,7 +18,6 @@ export function Filters({ handleCategoryChange }: FilterProps) {
 
   return (
     <div className="flex items-center gap-3">
-      {/*  <FilterCategory name="Tudo" defaultSelected /> */}
       {categories?.map((category) => {
         return (
           <FilterCategory

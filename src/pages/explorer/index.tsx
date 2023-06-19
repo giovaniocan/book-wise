@@ -13,6 +13,7 @@ export default function Explorer() {
     return data
   })
   const [selectedCategories, setSelectedCategories] = useState<string[]>([])
+  const [search, setSearch] = useState('')
 
   function handleCategoriesChange(categorie: string) {
     if (selectedCategories.includes(categorie)) {
@@ -24,18 +25,24 @@ export default function Explorer() {
     }
   }
 
+  function handleInputValue(data: string) {
+    setSearch(data)
+  }
+
   const filteredBooks = books?.filter((book) => {
-    if (selectedCategories.length === 0) {
-      return true // Retorna true se nenhuma categoria estiver selecionada
+    if (selectedCategories.length === 0 && search.trim() === '') {
+      return true // Retorna true se nenhuma categoria estiver selecionada ou com nenhuma pesquisa
     }
-    return selectedCategories.every((category) =>
+    const categoryFilters = selectedCategories.every((category) =>
       book.categories.some((cat) => cat.name === category),
     )
-  })
 
-  function handleInputValue(data: string) {
-    console.log(data)
-  }
+    const searchFilters =
+      book.name.toLowerCase().includes(search.toLowerCase()) ||
+      book.author.toLowerCase().includes(search.toLowerCase())
+
+    return categoryFilters && searchFilters
+  })
 
   return (
     <div className="h-screen w-screen  flex  ">
@@ -53,8 +60,10 @@ export default function Explorer() {
             />
           </div>
         </div>
+        <div>
+          <Filters handleCategoryChange={handleCategoriesChange} />
+        </div>
 
-        <Filters handleCategoryChange={handleCategoriesChange} />
         {filteredBooks && filteredBooks.length > 0 ? (
           <div className=" w-full  flex gap-7   flex-wrap ">
             {filteredBooks?.map((book) => {

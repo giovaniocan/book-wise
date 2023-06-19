@@ -96,10 +96,6 @@ export default function Home() {
               </span>
             </Link>
           </div>
-          {JSON.stringify(session)}
-          {session.data?.user.image && (
-            <img src={session.data?.user.image} alt="" />
-          )}
         </div>
       </div>
     </div>
