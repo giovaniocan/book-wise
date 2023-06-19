@@ -11,7 +11,6 @@ export function CommentArea({ closeCommentArea }: ComemntAreaProps) {
   const [valueOfTextarea, setValueOfTextarea] = useState('')
   const [rating, setRating] = useState(0)
   const maxLenghtOfTextarea = 450
-  console.log(rating)
 
   function handleTextAreaChange(event: ChangeEvent<HTMLTextAreaElement>) {
     if (event.target.value.length <= maxLenghtOfTextarea) {
@@ -21,6 +20,11 @@ export function CommentArea({ closeCommentArea }: ComemntAreaProps) {
 
   function handleRatingChange(rate: number) {
     setRating(rate)
+  }
+
+  function handleInputTheValue() {
+    console.log(valueOfTextarea)
+    console.log(rating)
   }
 
   return (
@@ -61,7 +65,10 @@ export function CommentArea({ closeCommentArea }: ComemntAreaProps) {
           >
             <X size={24} color="#8381D9" />
           </button>
-          <button className="bg-gray-600 p-2 hover:bg-gray-500">
+          <button
+            onClick={handleInputTheValue}
+            className="bg-gray-600 p-2 hover:bg-gray-500"
+          >
             <Check size={24} color="#50B2C0" />
           </button>
         </div>
