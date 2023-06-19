@@ -3,7 +3,11 @@ import Image from 'next/image'
 import { Check, X } from 'phosphor-react'
 import { ChangeEvent, useState } from 'react'
 
-export function CommentArea() {
+interface ComemntAreaProps {
+  closeCommentArea: () => void
+}
+
+export function CommentArea({ closeCommentArea }: ComemntAreaProps) {
   const [valueOfTextarea, setValueOfTextarea] = useState('')
   const maxLenghtOfTextarea = 450
 
@@ -45,7 +49,10 @@ export function CommentArea() {
         </div>
 
         <div className="flex gap-2 justify-end">
-          <button className="bg-gray-600 p-2 hover:bg-gray-500">
+          <button
+            onClick={closeCommentArea}
+            className="bg-gray-600 p-2 hover:bg-gray-500"
+          >
             <X size={24} color="#8381D9" />
           </button>
           <button className="bg-gray-600 p-2 hover:bg-gray-500">

@@ -7,13 +7,17 @@ import { SignInModal } from '../SignInModal'
 export function CommentList() {
   const [isCommentAreaOpen, setIsCommentAreaOpen] = useState(false)
   const session = useSession()
-  console.log(session)
 
   function handleToggleCommentArea() {
     if (session.status === 'authenticated') {
       setIsCommentAreaOpen(!isCommentAreaOpen)
     }
   }
+
+  function handleCloseCommentArea() {
+    setIsCommentAreaOpen(false)
+  }
+
   return (
     <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between">
@@ -29,7 +33,9 @@ export function CommentList() {
           </h4>
         )}
       </div>
-      {isCommentAreaOpen && <CommentArea />}
+      {isCommentAreaOpen && (
+        <CommentArea closeCommentArea={handleCloseCommentArea} />
+      )}
       <CommentCard />
       <CommentCard />
       <CommentCard />
