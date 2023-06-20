@@ -41,7 +41,7 @@ export function CommentList({ bookId }: CommentListProps) {
   })
 
   const { data: ratingsOfBook } = useQuery<ListOfCommentType[]>(
-    ['ratingsOfBook'],
+    [`ratingsOfBook=${bookId}`],
     async () => {
       const { data } = await api.get(`/ratings/rateByBook`, {
         params: {
@@ -103,6 +103,7 @@ export function CommentList({ bookId }: CommentListProps) {
       )}
       {ratingsOfBook &&
         ratingsOfBook.map((rating) => {
+          const commentBefore = rating.user.id === user?.id
           return (
             <CommentCard
               created_at={rating.created_at}
@@ -110,7 +111,7 @@ export function CommentList({ bookId }: CommentListProps) {
               description={rating.description}
               user={rating.user}
               key={rating.id}
-              id={rating.id}
+              userCommentBefore={commentBefore}
             />
           )
         })}
