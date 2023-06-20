@@ -47,6 +47,10 @@ export function CommentList({ bookId }: CommentListProps) {
     setIsCommentAreaOpen(false)
   }
 
+  function handleInsertDateInDB(rating: number, description: string) {
+    console.log(rating, description)
+  }
+
   return (
     <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between">
@@ -63,7 +67,10 @@ export function CommentList({ bookId }: CommentListProps) {
         )}
       </div>
       {isCommentAreaOpen && (
-        <CommentArea closeCommentArea={handleCloseCommentArea} />
+        <CommentArea
+          handleInputTheValue={handleInsertDateInDB}
+          closeCommentArea={handleCloseCommentArea}
+        />
       )}
       {ratingsOfBook &&
         ratingsOfBook.map((rating) => {

@@ -5,9 +5,13 @@ import { ChangeEvent, useState } from 'react'
 
 interface ComemntAreaProps {
   closeCommentArea: () => void
+  handleInputTheValue: (rate: number, description: string) => void
 }
 
-export function CommentArea({ closeCommentArea }: ComemntAreaProps) {
+export function CommentArea({
+  closeCommentArea,
+  handleInputTheValue,
+}: ComemntAreaProps) {
   const [valueOfTextarea, setValueOfTextarea] = useState('')
   const [rating, setRating] = useState(0)
   const maxLenghtOfTextarea = 450
@@ -22,7 +26,8 @@ export function CommentArea({ closeCommentArea }: ComemntAreaProps) {
     setRating(rate)
   }
 
-  function handleInputTheValue() {
+  function handleInputTextArea() {
+    handleInputTheValue(rating, valueOfTextarea)
     setValueOfTextarea('')
   }
 
@@ -70,7 +75,7 @@ export function CommentArea({ closeCommentArea }: ComemntAreaProps) {
             <X size={24} color="#8381D9" />
           </button>
           <button
-            onClick={handleInputTheValue}
+            onClick={handleInputTextArea}
             className="bg-gray-600 p-2 hover:bg-gray-500"
           >
             <Check size={24} color="#50B2C0" />
