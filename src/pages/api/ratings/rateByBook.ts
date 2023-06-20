@@ -21,6 +21,9 @@ export default async function handler(
     where: {
       book_id: bookId as string,
     },
+    orderBy: {
+      created_at: 'desc',
+    },
     select: {
       created_at: true,
       rate: true,

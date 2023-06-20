@@ -52,13 +52,12 @@ export function CommentList({ bookId }: CommentListProps) {
   }
 
   async function handleInsertDateInDB(rating: number, description: string) {
-    const rate = await api.post('ratings/addRating', {
+    await api.post('ratings/addRating', {
       rate: rating,
       description,
       book_id: bookId,
       user_id: userId,
     })
-    console.log(rate)
   }
 
   return (
