@@ -58,6 +58,7 @@ export function CommentList({ bookId }: CommentListProps) {
       book_id: bookId,
       user_id: userId,
     })
+    handleCloseCommentArea()
   }
 
   return (
