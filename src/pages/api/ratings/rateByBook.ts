@@ -38,7 +38,5 @@ export default async function handler(
     },
   })
 
-  console.log(rates)
-
   return res.status(200).json(rates)
 }

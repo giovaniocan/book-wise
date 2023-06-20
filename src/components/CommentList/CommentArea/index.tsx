@@ -6,11 +6,15 @@ import { ChangeEvent, useState } from 'react'
 interface ComemntAreaProps {
   closeCommentArea: () => void
   handleInputTheValue: (rate: number, description: string) => void
+  image: string
+  name: string
 }
 
 export function CommentArea({
   closeCommentArea,
   handleInputTheValue,
+  image,
+  name,
 }: ComemntAreaProps) {
   const [valueOfTextarea, setValueOfTextarea] = useState('')
   const [rating, setRating] = useState(0)
@@ -42,13 +46,13 @@ export function CommentArea({
         <div className="flex gap-4 items-center">
           <Image
             className="rounded-full p-[2px]  bg-gradient-horizontal"
-            src="https://github.com/giovaniocan.png"
+            src={image}
             width={60}
             height={40}
             alt="imagem do perfil do usuairo"
           />
 
-          <h4>nome do usuario</h4>
+          <h4>{name}</h4>
         </div>
         <div>
           <StarRating passedRatingNumber={handleRatingChange} />

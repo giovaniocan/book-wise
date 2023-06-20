@@ -6,6 +6,7 @@ import { SignInModal } from '../SignInModal'
 import { useQuery } from '@tanstack/react-query'
 import { api } from '@/lib/axios'
 import { parseCookies } from 'nookies'
+import { User } from '@prisma/client'
 
 export type ListOfCommentType = {
   created_at: string
@@ -28,6 +29,17 @@ export function CommentList({ bookId }: CommentListProps) {
 
   const cookies = parseCookies()
   const userId = cookies['@bookwise:userId']
+
+  const { data: user } = useQuery<User>(['user'], async () => {
+    const { data } = await api.get('users/getUserById', {
+      params: {
+        userId,
+      },
+    })
+    return data
+  })
+
+  console.log(user)
 
   const { data: ratingsOfBook } = useQuery<ListOfCommentType[]>(
     ['ratingsOfBook'],
@@ -78,6 +90,8 @@ export function CommentList({ bookId }: CommentListProps) {
       </div>
       {isCommentAreaOpen && (
         <CommentArea
+          image={user?.avatar_url || ''}
+          name={user?.name || ''}
           handleInputTheValue={handleInsertDateInDB}
           closeCommentArea={handleCloseCommentArea}
         />
