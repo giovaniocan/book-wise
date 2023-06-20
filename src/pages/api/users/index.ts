@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 import { prisma } from '@/lib/prisma'
 import { NextApiRequest, NextApiResponse } from 'next'
+import { setCookie } from 'nookies'
 
 export default async function handler(
   req: NextApiRequest,
@@ -28,6 +29,11 @@ export default async function handler(
       avatar_url,
       email,
     },
+  })
+
+  setCookie({ res }, '@bookwise:userId', user.id, {
+    maxAge: 60 * 60 * 24 * 30, // 30 days
+    path: '/', // all  routes can access this cookie
   })
 
   return res.status(201).json(user)

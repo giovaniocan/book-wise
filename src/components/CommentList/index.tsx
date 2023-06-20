@@ -1,10 +1,11 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { CommentCard } from './CommentCard'
 import { CommentArea } from './CommentArea'
 import { useSession } from 'next-auth/react'
 import { SignInModal } from '../SignInModal'
 import { useQuery } from '@tanstack/react-query'
 import { api } from '@/lib/axios'
+import { parseCookies } from 'nookies'
 
 export type ListOfCommentType = {
   created_at: string
@@ -24,6 +25,11 @@ interface CommentListProps {
 export function CommentList({ bookId }: CommentListProps) {
   const [isCommentAreaOpen, setIsCommentAreaOpen] = useState(false)
   const session = useSession()
+
+  const cookies = parseCookies()
+  const userId = cookies['@bookwise:userId']
+
+  console.log(userId)
 
   const { data: ratingsOfBook } = useQuery<ListOfCommentType[]>(
     ['ratingsOfBook'],

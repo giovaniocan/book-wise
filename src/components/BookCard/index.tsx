@@ -50,17 +50,12 @@ export function BookCard({ isIntheFeed, wasRead, book }: BookCardProps) {
               totalOfRatings={book?.totalOfRating || 0}
             />
             <CommentList bookId={book?.id || ''} />
-            <Dialog.Close>
-              <button
-                className=" absolute right-12 top-6 appearance-none "
-                aria-label="Close"
-              >
-                <X
-                  size={40}
-                  color="#8381D9"
-                  className="bg-gray-600 p-2 rounded-lg hover:bg-gray-500"
-                />
-              </button>
+            <Dialog.Close className="absolute right-12 top-6 appearance-none ">
+              <X
+                size={40}
+                color="#8381D9"
+                className="bg-gray-600 p-2 rounded-lg hover:bg-gray-500"
+              />
             </Dialog.Close>
           </Dialog.Content>
         </Dialog.Overlay>
