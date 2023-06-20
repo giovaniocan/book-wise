@@ -16,6 +16,7 @@ export type ListOfCommentType = {
   user: {
     avatar_url: string
     name: string
+    id: string
   }
 }
 
@@ -38,8 +39,6 @@ export function CommentList({ bookId }: CommentListProps) {
     })
     return data
   })
-
-  console.log(user)
 
   const { data: ratingsOfBook } = useQuery<ListOfCommentType[]>(
     ['ratingsOfBook'],
@@ -73,20 +72,26 @@ export function CommentList({ bookId }: CommentListProps) {
     handleCloseCommentArea()
   }
 
+  const userAlreadyCommentBefore = !ratingsOfBook?.some(
+    (item) => item.user.id === user?.id,
+  )
+
   return (
     <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between">
         <span className="text-sm text-gray-400">Avaliações</span>
-        {!isCommentAreaOpen && session.status === 'unauthenticated' ? (
-          <SignInModal />
-        ) : (
-          <h4
-            className="font-bold cursor-pointer text-purple-100"
-            onClick={handleToggleCommentArea}
-          >
-            Avaliar
-          </h4>
-        )}
+        {userAlreadyCommentBefore ? (
+          !isCommentAreaOpen && session.status === 'unauthenticated' ? (
+            <SignInModal />
+          ) : (
+            <h4
+              className="font-bold cursor-pointer text-purple-100"
+              onClick={handleToggleCommentArea}
+            >
+              Avaliar
+            </h4>
+          )
+        ) : null}
       </div>
       {isCommentAreaOpen && (
         <CommentArea
