@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { CommentCard } from './CommentCard'
 import { CommentArea } from './CommentArea'
 import { useSession } from 'next-auth/react'
@@ -29,8 +29,6 @@ export function CommentList({ bookId }: CommentListProps) {
   const cookies = parseCookies()
   const userId = cookies['@bookwise:userId']
 
-  console.log(userId)
-
   const { data: ratingsOfBook } = useQuery<ListOfCommentType[]>(
     ['ratingsOfBook'],
     async () => {
@@ -53,8 +51,14 @@ export function CommentList({ bookId }: CommentListProps) {
     setIsCommentAreaOpen(false)
   }
 
-  function handleInsertDateInDB(rating: number, description: string) {
-    console.log(rating, description)
+  async function handleInsertDateInDB(rating: number, description: string) {
+    const rate = await api.post('ratings/addRating', {
+      rate: rating,
+      description,
+      book_id: bookId,
+      user_id: userId,
+    })
+    console.log(rate)
   }
 
   return (
