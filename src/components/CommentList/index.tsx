@@ -3,9 +3,8 @@ import { CommentCard } from './CommentCard'
 import { CommentArea } from './CommentArea'
 import { useSession } from 'next-auth/react'
 import { SignInModal } from '../SignInModal'
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { api } from '@/lib/axios'
-import { parseCookies } from 'nookies'
 import { User } from '@prisma/client'
 
 export type ListOfCommentType = {
@@ -21,37 +20,15 @@ export type ListOfCommentType = {
 }
 
 interface CommentListProps {
+  ratingsOfbook: ListOfCommentType[]
+  user?: User
   bookId: string
 }
 
-export function CommentList({ bookId }: CommentListProps) {
+export function CommentList({ ratingsOfbook, bookId, user }: CommentListProps) {
   const [isCommentAreaOpen, setIsCommentAreaOpen] = useState(false)
-
+  console.log(user)
   const session = useSession()
-
-  const cookies = parseCookies()
-  const userEmail = cookies['@bookwise:userEmail']
-
-  const { data: user } = useQuery<User>(['user'], async () => {
-    const { data } = await api.get('users/getUserByEmail', {
-      params: {
-        userEmail,
-      },
-    })
-    return data
-  })
-
-  const { data: ratingsOfBook } = useQuery<ListOfCommentType[]>(
-    [`ratingsOfBook=${bookId}`],
-    async () => {
-      const { data } = await api.get(`/ratings/rateByBook`, {
-        params: {
-          bookId,
-        },
-      })
-      return data
-    },
-  )
 
   function handleToggleCommentArea() {
     if (session.status === 'authenticated') {
@@ -78,6 +55,7 @@ export function CommentList({ bookId }: CommentListProps) {
       onSuccess: () => {
         // se foi adicionado, ele fala que o nosso valor antes pegado e colocado em cache é invalido, ou seja, ele necessita fazer uma nova requisição e atualizar o cache
         queryClient.invalidateQueries([`ratingsOfBook=${bookId}`])
+        queryClient.invalidateQueries(['books'])
       },
     },
   )
@@ -87,7 +65,7 @@ export function CommentList({ bookId }: CommentListProps) {
     handleCloseCommentArea()
   }
 
-  const userAlreadyCommentBefore = !ratingsOfBook?.some(
+  const userAlreadyCommentBefore = !ratingsOfbook?.some(
     (item) => item.user.id === user?.id,
   )
 
@@ -116,8 +94,8 @@ export function CommentList({ bookId }: CommentListProps) {
           closeCommentArea={handleCloseCommentArea}
         />
       )}
-      {ratingsOfBook &&
-        ratingsOfBook.map((rating) => {
+      {ratingsOfbook &&
+        ratingsOfbook.map((rating) => {
           const commentBefore = rating.user.id === user?.id
           return (
             <CommentCard

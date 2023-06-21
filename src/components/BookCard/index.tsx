@@ -2,8 +2,11 @@ import * as Dialog from '@radix-ui/react-dialog'
 import { ContentOfBookCard } from './ContentOfBookCard'
 import { X } from 'phosphor-react'
 import { BookDetail } from './BookDetail'
-import { CommentList } from '../CommentList'
-import { Category } from '@prisma/client'
+import { CommentList, ListOfCommentType } from '../CommentList'
+import { Category, User } from '@prisma/client'
+import { useQuery } from '@tanstack/react-query'
+import { api } from '@/lib/axios'
+import { parseCookies } from 'nookies'
 
 export type BookCardType = {
   id: string
@@ -23,6 +26,34 @@ interface BookCardProps {
 }
 
 export function BookCard({ isIntheFeed, wasRead, book }: BookCardProps) {
+  const { data: ratingsOfBook } = useQuery<ListOfCommentType[]>(
+    [`ratingsOfBook=${book?.id}`],
+    async () => {
+      const { data } = await api.get(`/ratings/rateByBook`, {
+        params: {
+          bookId: book?.id,
+        },
+      })
+      return data
+    },
+  )
+
+  const cookies = parseCookies()
+  const userEmail = cookies['@bookwise:userEmail']
+
+  const { data: user } = useQuery<User>(['user'], async () => {
+    const { data } = await api.get('users/getUserByEmail', {
+      params: {
+        userEmail,
+      },
+    })
+    return data
+  })
+
+  const bookReadBefore = ratingsOfBook?.some(
+    (rating) => rating.user.id === user?.id,
+  )
+
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>
@@ -33,7 +64,7 @@ export function BookCard({ isIntheFeed, wasRead, book }: BookCardProps) {
             title={book?.name || ''}
             rating={book?.avgRating || 0}
             isIntheFeed={isIntheFeed}
-            wasRead={wasRead}
+            wasRead={bookReadBefore}
           />
         </div>
       </Dialog.Trigger>
@@ -49,7 +80,11 @@ export function BookCard({ isIntheFeed, wasRead, book }: BookCardProps) {
               totalPages={book?.total_pages || 0}
               totalOfRatings={book?.totalOfRating || 0}
             />
-            <CommentList bookId={book?.id || ''} />
+            <CommentList
+              user={user}
+              ratingsOfbook={ratingsOfBook || []}
+              bookId={book?.id || ''}
+            />
             <Dialog.Close className="absolute right-12 top-6 appearance-none ">
               <X
                 size={40}
