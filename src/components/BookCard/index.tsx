@@ -22,10 +22,9 @@ export type BookCardType = {
 interface BookCardProps {
   book?: BookCardType
   isIntheFeed?: boolean
-  wasRead?: boolean
 }
 
-export function BookCard({ isIntheFeed, wasRead, book }: BookCardProps) {
+export function BookCard({ isIntheFeed, book }: BookCardProps) {
   const { data: ratingsOfBook } = useQuery<ListOfCommentType[]>(
     [`ratingsOfBook=${book?.id}`],
     async () => {

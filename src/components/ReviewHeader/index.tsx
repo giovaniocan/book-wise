@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { StarRatingWithRate } from '../StarRating/StarRatingWithRate'
-import { parseISO, isValid, formatDistanceToNow } from 'date-fns'
-import { ptBR } from 'date-fns/locale'
+
+import { fixDateReview } from '@/utils/fixDateReview'
 
 interface ReviewHeaderProps {
   rating: number
@@ -11,15 +11,7 @@ interface ReviewHeaderProps {
 }
 
 export function ReviewHeader({ image, name, rating, date }: ReviewHeaderProps) {
-  let distanceToNow = ''
-
-  if (isValid(parseISO(date))) {
-    const parsedDate = parseISO(date)
-    distanceToNow = formatDistanceToNow(parsedDate, {
-      addSuffix: true,
-      locale: ptBR,
-    })
-  }
+  const distanceToNow = fixDateReview(date)
 
   return (
     <div className="flex w-full justify-between items-center">

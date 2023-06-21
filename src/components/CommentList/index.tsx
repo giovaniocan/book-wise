@@ -27,7 +27,6 @@ interface CommentListProps {
 
 export function CommentList({ ratingsOfbook, bookId, user }: CommentListProps) {
   const [isCommentAreaOpen, setIsCommentAreaOpen] = useState(false)
-  console.log(user)
   const session = useSession()
 
   function handleToggleCommentArea() {
