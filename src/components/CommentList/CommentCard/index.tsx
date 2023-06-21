@@ -20,7 +20,6 @@ export function CommentCard({
   rate,
   userCommentBefore,
 }: CommentCardProps) {
-  console.log(userCommentBefore)
   return (
     <div
       className={`w-full p-6 flex flex-col gap-5 bg-gray-700 rounded-lg ${

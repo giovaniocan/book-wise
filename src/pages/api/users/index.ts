@@ -31,10 +31,12 @@ export default async function handler(
     },
   })
 
-  setCookie({ res }, '@bookwise:userId', user.id, {
-    maxAge: 60 * 60 * 24 * 30, // 30 days
-    path: '/', // all  routes can access this cookie
-  })
+  if (user.email) {
+    setCookie({ res }, '@bookwise:userEmail', user.email, {
+      maxAge: 60 * 60 * 24 * 30, // 30 days
+      path: '/', // all  routes can access this cookie
+    })
+  }
 
   return res.status(201).json(user)
 }

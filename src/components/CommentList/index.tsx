@@ -26,15 +26,16 @@ interface CommentListProps {
 
 export function CommentList({ bookId }: CommentListProps) {
   const [isCommentAreaOpen, setIsCommentAreaOpen] = useState(false)
+
   const session = useSession()
 
   const cookies = parseCookies()
-  const userId = cookies['@bookwise:userId']
+  const userEmail = cookies['@bookwise:userEmail']
 
   const { data: user } = useQuery<User>(['user'], async () => {
-    const { data } = await api.get('users/getUserById', {
+    const { data } = await api.get('users/getUserByEmail', {
       params: {
-        userId,
+        userEmail,
       },
     })
     return data
@@ -67,7 +68,7 @@ export function CommentList({ bookId }: CommentListProps) {
       rate: rating,
       description,
       book_id: bookId,
-      user_id: userId,
+      user_id: user?.id,
     })
     handleCloseCommentArea()
   }

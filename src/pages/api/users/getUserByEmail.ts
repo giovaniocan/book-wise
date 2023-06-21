@@ -10,15 +10,15 @@ export default async function handler(
     return res.status(405).end()
   }
 
-  const { userId } = req.query
+  const { userEmail } = req.query
 
-  if (!userId) {
+  if (!userEmail) {
     return res.status(400).json({ message: 'user_id is required' })
   }
 
   const user = await prisma.user.findUnique({
     where: {
-      id: userId as string,
+      email: userEmail as string,
     },
   })
 

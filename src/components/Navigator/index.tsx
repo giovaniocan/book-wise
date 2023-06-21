@@ -3,6 +3,7 @@ import { signIn, signOut, useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { setCookie } from 'nookies'
 import { SignOut } from 'phosphor-react'
 
 export function Navigator() {
@@ -10,6 +11,12 @@ export function Navigator() {
   const { pathname } = router
   const { data: session } = useSession()
   const user = session?.user
+  if (user) {
+    setCookie(null, '@bookwise:userEmail', user.email, {
+      maxAge: 60 * 60 * 24 * 30, // 30 days
+      path: '/', // all routes can access this cookie
+    })
+  }
 
   async function handleSignIn() {
     await signIn('google')

@@ -2,11 +2,9 @@ import React from 'react'
 import * as Dialog from '@radix-ui/react-dialog'
 import { X } from 'phosphor-react'
 import Image from 'next/image'
-import { signIn, useSession } from 'next-auth/react'
+import { signIn } from 'next-auth/react'
 
 export function SignInModal() {
-  const session = useSession()
-
   function LogInWithGitHub() {
     signIn('github')
   }
