@@ -3,7 +3,7 @@ import { CommentCard } from './CommentCard'
 import { CommentArea } from './CommentArea'
 import { useSession } from 'next-auth/react'
 import { SignInModal } from '../SignInModal'
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { api } from '@/lib/axios'
 import { parseCookies } from 'nookies'
 import { User } from '@prisma/client'
@@ -63,13 +63,27 @@ export function CommentList({ bookId }: CommentListProps) {
     setIsCommentAreaOpen(false)
   }
 
+  const queryClient = useQueryClient() // esse userQueryClient serve para atualizar o cache do react query quando uma mutation for executada
+
+  const insertRatingMutation = useMutation(
+    async (data: { rate: number; description: string }) => {
+      // aqui estamos adicionando no DB normalmente
+      await api.post('ratings/addRating', {
+        ...data,
+        book_id: bookId,
+        user_id: user?.id,
+      })
+    },
+    {
+      onSuccess: () => {
+        // se foi adicionado, ele fala que o nosso valor antes pegado e colocado em cache é invalido, ou seja, ele necessita fazer uma nova requisição e atualizar o cache
+        queryClient.invalidateQueries([`ratingsOfBook=${bookId}`])
+      },
+    },
+  )
+
   async function handleInsertDateInDB(rating: number, description: string) {
-    await api.post('ratings/addRating', {
-      rate: rating,
-      description,
-      book_id: bookId,
-      user_id: user?.id,
-    })
+    await insertRatingMutation.mutateAsync({ rate: rating, description }) // aqui estamos chamando a função para realizar a mutação
     handleCloseCommentArea()
   }
 
