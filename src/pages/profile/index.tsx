@@ -6,6 +6,7 @@ import { api } from '@/lib/axios'
 import { useQuery } from '@tanstack/react-query'
 import { parseCookies } from 'nookies'
 import { User } from 'phosphor-react'
+import { useState } from 'react'
 
 /* categories: {
         category: {
@@ -32,6 +33,8 @@ interface UserProfile {
 }
 
 export default function Profile() {
+  const [valueOfInput, setValueOfInput] = useState('')
+
   const cookies = parseCookies()
   const userEmail = cookies['@bookwise:userEmail']
 
@@ -58,6 +61,18 @@ export default function Profile() {
     return uniqueAuthors
   }, [])
 
+  function handleInputName(data: string) {
+    setValueOfInput(data)
+  }
+
+  const filteredRatings = user?.ratings.filter((rating) => {
+    if (valueOfInput.trim() === '') {
+      return rating
+    }
+    const searchFilter = rating.book.name.toLowerCase().includes(valueOfInput)
+    return searchFilter
+  })
+
   return (
     <div>
       <div className="h-screen w-screen  flex  ">
@@ -69,9 +84,12 @@ export default function Profile() {
           </div>
           <div className="flex gap-16">
             <div className="w-full flex flex-col gap-8">
-              <SearchBar placeholder="Buscar livro avaliado" />
+              <SearchBar
+                handleInputName={handleInputName}
+                placeholder="Buscar livro avaliado"
+              />
               <div className="w-full flex flex-col gap-6">
-                {user?.ratings.map((rating) => {
+                {filteredRatings?.map((rating) => {
                   return (
                     <ProfileBookCard
                       key={rating.created_at}

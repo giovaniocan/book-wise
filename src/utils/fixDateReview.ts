@@ -1,11 +1,9 @@
-import { format, formatDistanceToNow, isValid, parseISO } from 'date-fns'
+import { formatDistanceToNow, isValid, parseISO } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 
 export function fixDateReview(date: string, justYear?: boolean) {
   if (justYear) {
-    const parsedDate = parseISO(date)
-    const dateFixed = format(parsedDate, 'yyyy')
-    return dateFixed
+    return date.substring(0, 4)
   }
 
   let distanceToNow = ''
