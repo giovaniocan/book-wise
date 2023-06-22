@@ -5,7 +5,7 @@ import { ReviewHeader } from '../ReviewHeader'
 import { useState } from 'react'
 import { User, Book } from '@prisma/client'
 
-export type RatingCardWithAuthorAndBooks = {
+export type RatingCardWithAuthorAndBooksProps = {
   user: User
   book: Book
   rate: number
@@ -20,7 +20,7 @@ export function RatingCard({
   rate,
   created_at,
   description,
-}: RatingCardWithAuthorAndBooks) {
+}: RatingCardWithAuthorAndBooksProps) {
   const [isReadMore, setIsReadMore] = useState(false)
 
   function toggleReadMore() {
@@ -52,7 +52,7 @@ export function RatingCard({
 
           <div>
             <p
-              className={`text-sm text-justify ${
+              className={`text-sm text-gray-300 text-justify ${
                 isReadMore === false && 'line-clamp-4'
               } `}
             >

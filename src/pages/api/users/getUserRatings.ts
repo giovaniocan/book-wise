@@ -35,12 +35,25 @@ export default async function handler(
               total_pages: true,
               name: true,
               cover_url: true,
+              categories: {
+                include: {
+                  category: {
+                    select: { name: true },
+                  },
+                },
+              },
             },
           },
         },
       },
     },
   })
+
+  console.log(
+    user?.ratings.map((rating) =>
+      rating.book.categories.map((c) => c.category.name),
+    ),
+  )
 
   return res.status(200).json(user)
 }

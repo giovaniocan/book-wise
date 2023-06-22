@@ -8,28 +8,34 @@ import { parseCookies } from 'nookies'
 import { User } from 'phosphor-react'
 import { useState } from 'react'
 
-/* categories: {
-        category: {
-          name: string
-        }[]
-      }[] */
+interface Category {
+  name: string
+}
+
+interface Book {
+  author: string
+  total_pages: number
+  name: string
+  cover_url: string
+  categories: {
+    category: Category[]
+  }[]
+}
+
+interface Rating {
+  rate: number
+  description: string
+  created_at: string
+  book: Book
+}
+
 interface UserProfile {
   id: string
   name: string
   email: string
   avatar_url: string
   created_at: string
-  ratings: {
-    rate: number
-    description: string
-    created_at: string
-    book: {
-      author: string
-      total_pages: number
-      name: string
-      cover_url: string
-    }
-  }[]
+  ratings: Rating[]
 }
 
 export default function Profile() {
