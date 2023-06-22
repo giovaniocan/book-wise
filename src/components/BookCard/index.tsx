@@ -7,6 +7,7 @@ import { Category, User } from '@prisma/client'
 import { useQuery } from '@tanstack/react-query'
 import { api } from '@/lib/axios'
 import { parseCookies } from 'nookies'
+import { useSession } from 'next-auth/react'
 
 export type BookCardType = {
   id: string
@@ -25,6 +26,7 @@ interface BookCardProps {
 }
 
 export function BookCard({ isIntheFeed, book }: BookCardProps) {
+  const session = useSession()
   const { data: ratingsOfBook } = useQuery<ListOfCommentType[]>(
     [`ratingsOfBook=${book?.id}`],
     async () => {
@@ -52,7 +54,8 @@ export function BookCard({ isIntheFeed, book }: BookCardProps) {
   let bookReadBefore = ratingsOfBook?.some(
     (rating) => rating.user.id === user?.id,
   )
-  if (!isIntheFeed) {
+  console.log(session.status)
+  if (!isIntheFeed || session.status === 'unauthenticated') {
     bookReadBefore = false
   }
   return (
