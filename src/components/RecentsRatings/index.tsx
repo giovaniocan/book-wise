@@ -5,6 +5,8 @@ import { useSession } from 'next-auth/react'
 import { parseCookies } from 'nookies'
 import { User } from '@prisma/client'
 import { LastRatingFromUser } from '../LastRatingFromUser.tsx'
+import Link from 'next/link'
+import { CaretRight } from 'phosphor-react'
 
 export function RecentRatings() {
   const session = useSession()
@@ -41,7 +43,15 @@ export function RecentRatings() {
     <div className="w-full flex flex-col gap-4">
       {session.status === 'authenticated' && (
         <div className="flex flex-col gap-4">
-          <h3 className="text-sm">Sua ultima leitura</h3>
+          <div className="flex items-center justify-between">
+            <h3 className="text-sm">Sua ultima leitura</h3>
+            <Link
+              href="/profile"
+              className="text-purple-100 text-sm font-bold flex gap-2 items-center"
+            >
+              Ver todos <CaretRight color="#8381D9" />
+            </Link>
+          </div>
 
           {userBooksRated?.map((rating) => {
             return (
