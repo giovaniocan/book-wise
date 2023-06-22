@@ -49,10 +49,12 @@ export function BookCard({ isIntheFeed, book }: BookCardProps) {
     return data
   })
 
-  const bookReadBefore = ratingsOfBook?.some(
+  let bookReadBefore = ratingsOfBook?.some(
     (rating) => rating.user.id === user?.id,
   )
-
+  if (!isIntheFeed) {
+    bookReadBefore = false
+  }
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>

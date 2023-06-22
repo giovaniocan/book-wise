@@ -12,7 +12,6 @@ export function FilterCategory({
   handleCategoriesChange,
 }: FilterCategoryProps) {
   const [isSelected, setIsSelected] = useState(defaultSelected)
-
   function toogleSelected() {
     setIsSelected(!isSelected)
     handleCategoriesChange(name)
