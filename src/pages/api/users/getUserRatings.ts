@@ -49,11 +49,5 @@ export default async function handler(
     },
   })
 
-  console.log(
-    user?.ratings.map((rating) =>
-      rating.book.categories.map((c) => c.category.name),
-    ),
-  )
-
   return res.status(200).json(user)
 }

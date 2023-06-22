@@ -54,7 +54,7 @@ export function BookCard({ isIntheFeed, book }: BookCardProps) {
   let bookReadBefore = ratingsOfBook?.some(
     (rating) => rating.user.id === user?.id,
   )
-  console.log(session.status)
+
   if (!isIntheFeed || session.status === 'unauthenticated') {
     bookReadBefore = false
   }

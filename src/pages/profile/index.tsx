@@ -6,7 +6,9 @@ import { api } from '@/lib/axios'
 import { useQuery } from '@tanstack/react-query'
 import { parseCookies } from 'nookies'
 import { User } from 'phosphor-react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
+import { useSession } from 'next-auth/react'
 
 interface Category {
   name: string
@@ -39,6 +41,9 @@ interface UserProfile {
 }
 
 export default function Profile() {
+  const router = useRouter()
+  const session = useSession()
+
   const [valueOfInput, setValueOfInput] = useState('')
 
   const cookies = parseCookies()
@@ -79,6 +84,12 @@ export default function Profile() {
     return searchFilter
   })
 
+  useEffect(() => {
+    console.log(session.status)
+    if (session.status === 'unauthenticated') {
+      router.push('/home')
+    }
+  }, [session.status, router])
   return (
     <div>
       <div className="h-screen w-screen  flex  ">
