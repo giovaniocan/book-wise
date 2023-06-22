@@ -37,9 +37,7 @@ export default async function handler(
               cover_url: true,
               categories: {
                 include: {
-                  category: {
-                    select: { name: true },
-                  },
+                  category: true,
                 },
               },
             },
@@ -49,5 +47,32 @@ export default async function handler(
     },
   })
 
-  return res.status(200).json(user)
+  const ratedBooks = user?.ratings.length
+
+  const totalPages = user?.ratings.reduce((total, item) => {
+    return total + item.book.total_pages
+  }, 0)
+
+  const authorsRead = user?.ratings.reduce((uniqueAuthors: string[], item) => {
+    const author = item.book.author
+    if (!uniqueAuthors.includes(author)) {
+      uniqueAuthors.push(author)
+    }
+    return uniqueAuthors
+  }, [])
+
+  const profileDate = {
+    user: {
+      name: user?.name,
+      avatar_url: user?.avatar_url,
+      created_at: user?.created_at,
+    },
+    readPages: totalPages,
+    ratedBooks,
+    readAuthors: authorsRead?.length,
+    mostReadCategory: 'teste',
+    ratings: user?.ratings,
+  }
+
+  return res.status(200).json(profileDate)
 }

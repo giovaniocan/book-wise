@@ -10,18 +10,11 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
 
-interface Category {
-  name: string
-}
-
 interface Book {
   author: string
   total_pages: number
   name: string
   cover_url: string
-  categories: {
-    category: Category[]
-  }[]
 }
 
 interface Rating {
@@ -31,12 +24,18 @@ interface Rating {
   book: Book
 }
 
-interface UserProfile {
-  id: string
+interface UserProps {
   name: string
-  email: string
   avatar_url: string
   created_at: string
+}
+
+interface UserProfile {
+  user: UserProps
+  readPages: number
+  ratedBooks: number
+  readAuthors: number
+  mostReadCategory: string
   ratings: Rating[]
 }
 
@@ -49,34 +48,23 @@ export default function Profile() {
   const cookies = parseCookies()
   const userEmail = cookies['@bookwise:userEmail']
 
-  const { data: user } = useQuery<UserProfile>(['userProfile'], async () => {
-    const { data } = await api.get('users/getUserRatings', {
-      params: {
-        userEmail,
-      },
-    })
-    return data
-  })
-
-  const ratedBooks = user?.ratings.length
-
-  const totalPages = user?.ratings.reduce((total, item) => {
-    return total + item.book.total_pages
-  }, 0)
-
-  const authorsRead = user?.ratings.reduce((uniqueAuthors: string[], item) => {
-    const author = item.book.author
-    if (!uniqueAuthors.includes(author)) {
-      uniqueAuthors.push(author)
-    }
-    return uniqueAuthors
-  }, [])
+  const { data: userProfile } = useQuery<UserProfile>(
+    ['userProfile', userEmail],
+    async () => {
+      const { data } = await api.get('users/getUserRatings', {
+        params: {
+          userEmail,
+        },
+      })
+      return data
+    },
+  )
 
   function handleInputName(data: string) {
     setValueOfInput(data)
   }
 
-  const filteredRatings = user?.ratings.filter((rating) => {
+  const filteredRatings = userProfile?.ratings.filter((rating) => {
     if (valueOfInput.trim() === '') {
       return rating
     }
@@ -105,6 +93,7 @@ export default function Profile() {
                 handleInputName={handleInputName}
                 placeholder="Buscar livro avaliado"
               />
+
               <div className="w-full flex flex-col gap-6">
                 {filteredRatings?.map((rating) => {
                   return (
@@ -122,11 +111,12 @@ export default function Profile() {
 
             <div className="w-96">
               <ProfileInfo
-                name={user?.name || ''}
-                createdAt={user?.created_at || ''}
-                ratedBooks={ratedBooks || 0}
-                totalPages={totalPages || 0}
-                authorsRead={authorsRead?.length || 0}
+                name={userProfile?.user.name || ''}
+                createdAt={userProfile?.user?.created_at || ''}
+                image={userProfile?.user.avatar_url || ''}
+                ratedBooks={userProfile?.ratedBooks || 0}
+                totalPages={userProfile?.readPages || 0}
+                authorsRead={userProfile?.readAuthors || 0}
               />
             </div>
           </div>

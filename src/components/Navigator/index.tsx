@@ -80,7 +80,7 @@ export function Navigator() {
         ) : (
           <div className="flex gap-3  pb-6 items-center ">
             <Image
-              src="https://github.com/giovaniocan.png"
+              src={user.image || user.avatar_url}
               height={40}
               width={40}
               alt="capa do livro"

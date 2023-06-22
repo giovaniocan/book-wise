@@ -5,6 +5,7 @@ import { BookOpen, BookmarkSimple, Books, UserList } from 'phosphor-react'
 interface ProfileInfoProps {
   name: string
   createdAt: string
+  image: string
   totalPages: number
   ratedBooks: number
   authorsRead: number
@@ -13,6 +14,7 @@ interface ProfileInfoProps {
 
 export function ProfileInfo({
   name,
+  image,
   createdAt,
   totalPages,
   ratedBooks,
@@ -24,7 +26,7 @@ export function ProfileInfo({
       <div className="flex  flex-col items-center  ">
         <Image
           className="rounded-full p-[2px]  bg-gradient-horizontal"
-          src="https://github.com/giovaniocan.png"
+          src={image}
           width={60}
           height={40}
           alt="imagem do perfil do usuairo"
