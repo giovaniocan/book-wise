@@ -60,9 +60,8 @@ export default function Explorer() {
             />
           </div>
         </div>
-        <div>
-          <Filters handleCategoryChange={handleCategoriesChange} />
-        </div>
+
+        <Filters handleCategoryChange={handleCategoriesChange} />
 
         {filteredBooks && filteredBooks.length > 0 ? (
           <div className=" w-full  flex gap-7   flex-wrap ">
