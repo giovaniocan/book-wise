@@ -47,6 +47,27 @@ export default async function handler(
     },
   })
 
+  const mostRating = user?.ratings.map((rating) => {
+    return rating.book.categories.map((category) => category.category.name)
+  }) // getting a array with all the categories of the books
+
+  const filterCategories = mostRating?.flatMap((category) => category) // gettinh all the categorias in a unique array
+
+  const categoryCount = filterCategories?.reduce((count, category) => {
+    count[category] = (count[category] || 0) + 1
+    return count
+  }, {} as { [key: string]: number })
+
+  let maxCount = 0
+  let mostFrequentCategory = ''
+
+  for (const category in categoryCount) {
+    if (categoryCount[category] > maxCount) {
+      maxCount = categoryCount[category]
+      mostFrequentCategory = category
+    }
+  }
+
   const ratedBooks = user?.ratings.length
 
   const totalPages = user?.ratings.reduce((total, item) => {
@@ -70,7 +91,7 @@ export default async function handler(
     readPages: totalPages,
     ratedBooks,
     readAuthors: authorsRead?.length,
-    mostReadCategory: 'teste',
+    mostReadCategory: mostFrequentCategory,
     ratings: user?.ratings,
   }
 

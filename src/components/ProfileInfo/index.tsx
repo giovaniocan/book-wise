@@ -9,7 +9,7 @@ interface ProfileInfoProps {
   totalPages: number
   ratedBooks: number
   authorsRead: number
-  mostCategory?: string
+  mostCategory: string
 }
 
 export function ProfileInfo({
@@ -19,6 +19,7 @@ export function ProfileInfo({
   totalPages,
   ratedBooks,
   authorsRead,
+  mostCategory,
 }: ProfileInfoProps) {
   const dateJoinInTheSite = fixDateReview(createdAt, true)
   return (
@@ -63,7 +64,7 @@ export function ProfileInfo({
         <div className="flex gap-5">
           <BookmarkSimple size={32} color="#50B2C0" />
           <div>
-            <h5 className="font-bold text-gray-200">Numero grande</h5>
+            <h5 className="font-bold text-gray-200">{mostCategory}</h5>
             <span className="text-sm text-gray-300">Categoria mais lida</span>
           </div>
         </div>

@@ -117,6 +117,7 @@ export default function Profile() {
                 ratedBooks={userProfile?.ratedBooks || 0}
                 totalPages={userProfile?.readPages || 0}
                 authorsRead={userProfile?.readAuthors || 0}
+                mostCategory={userProfile?.mostReadCategory || ''}
               />
             </div>
           </div>
