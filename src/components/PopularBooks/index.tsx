@@ -3,9 +3,10 @@ import { BookCard, BookCardType } from '../BookCard'
 import Link from 'next/link'
 import { useQuery } from '@tanstack/react-query'
 import { api } from '@/lib/axios'
+import { BookSkeleton } from '../Skeleton/BookSkeleton'
 
 export function PopularBooks() {
-  const { data: popularBooks } = useQuery<BookCardType[]>(
+  const { data: popularBooks, isLoading } = useQuery<BookCardType[]>(
     ['popularBooks'],
     async () => {
       const { data } = await api.get('/books/popularBooks')
@@ -24,11 +25,15 @@ export function PopularBooks() {
           Ver todos <CaretRight color="#8381D9" />
         </Link>
       </div>
-      <div className="flex flex-col gap-3 ">
-        {popularBooks?.map((book) => {
-          return <BookCard key={book.id} book={book} />
-        })}
-      </div>
+      {isLoading ? (
+        <BookSkeleton isPopularBooks />
+      ) : (
+        <div className="flex flex-col gap-3 ">
+          {popularBooks?.map((book) => {
+            return <BookCard key={book.id} book={book} />
+          })}
+        </div>
+      )}
     </div>
   )
 }

@@ -1,7 +1,7 @@
 import { BookCard, BookCardType } from '@/components/BookCard'
 import { Navigator } from '@/components/Navigator'
 import { SearchBar } from '@/components/SearchBar'
-import { ExplorerSkeleton } from '@/components/Skeleton/ExplorerSkeleton'
+import { BookSkeleton } from '@/components/Skeleton/BookSkeleton'
 import { Filters } from '@/components/filters'
 import { api } from '@/lib/axios'
 import { Broom } from '@phosphor-icons/react'
@@ -81,7 +81,7 @@ export default function Explorer() {
           <Filters handleCategoryChange={handleCategoriesChange} />
         </div>
         {isLoading ? (
-          <ExplorerSkeleton /> // Show skeleton component while loading
+          <BookSkeleton /> // Show skeleton component while loading
         ) : filteredBooks && filteredBooks.length > 0 ? (
           <div className="w-full flex gap-7 flex-wrap">
             {filteredBooks?.map((book) => (

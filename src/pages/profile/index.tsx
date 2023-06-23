@@ -9,6 +9,7 @@ import { User } from 'phosphor-react'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
+import { RatingSkeleton } from '@/components/Skeleton/RatingSkeleton.tsx'
 
 interface Book {
   author: string
@@ -48,7 +49,7 @@ export default function Profile() {
   const cookies = parseCookies()
   const userEmail = cookies['@bookwise:userEmail']
 
-  const { data: userProfile } = useQuery<UserProfile>(
+  const { data: userProfile, isLoading } = useQuery<UserProfile>(
     ['userProfile', userEmail],
     async () => {
       const { data } = await api.get('users/getUserRatings', {
@@ -93,19 +94,23 @@ export default function Profile() {
                 placeholder="Buscar livro avaliado"
               />
 
-              <div className="w-full flex flex-col gap-6">
-                {filteredRatings?.map((rating) => {
-                  return (
-                    <ProfileBookCard
-                      key={rating.created_at}
-                      book={rating.book}
-                      createdAt={rating.created_at}
-                      description={rating.description}
-                      rate={rating.rate}
-                    />
-                  )
-                })}
-              </div>
+              {isLoading ? (
+                <RatingSkeleton />
+              ) : (
+                <div className="w-full flex flex-col gap-6">
+                  {filteredRatings?.map((rating) => {
+                    return (
+                      <ProfileBookCard
+                        key={rating.created_at}
+                        book={rating.book}
+                        createdAt={rating.created_at}
+                        description={rating.description}
+                        rate={rating.rate}
+                      />
+                    )
+                  })}
+                </div>
+              )}
             </div>
 
             <div className="w-96">
