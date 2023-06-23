@@ -73,7 +73,6 @@ export default function Profile() {
   })
 
   useEffect(() => {
-    console.log(session.status)
     if (session.status === 'unauthenticated') {
       router.push('/home')
     }
