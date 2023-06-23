@@ -1,19 +1,23 @@
 import { BookCard, BookCardType } from '@/components/BookCard'
 import { Navigator } from '@/components/Navigator'
 import { SearchBar } from '@/components/SearchBar'
+import { ExplorerSkeleton } from '@/components/Skeleton/ExplorerSkeleton'
 import { Filters } from '@/components/filters'
 import { api } from '@/lib/axios'
 import { Broom } from '@phosphor-icons/react'
 import { useQuery } from '@tanstack/react-query'
-import { set } from 'date-fns'
+
 import { Binoculars } from 'phosphor-react'
 import { useState } from 'react'
 
 export default function Explorer() {
-  const { data: books } = useQuery<BookCardType[]>(['books'], async () => {
-    const { data } = await api.get('/books')
-    return data
-  })
+  const { data: books, isLoading } = useQuery<BookCardType[]>(
+    ['books'],
+    async () => {
+      const { data } = await api.get('/books')
+      return data
+    },
+  )
   const [selectedCategories, setSelectedCategories] = useState<string[]>([])
   const [search, setSearch] = useState('')
 
@@ -72,16 +76,17 @@ export default function Explorer() {
             onClick={handleResetFilters}
             className="text-purple-100 text-sm font-bold flex gap-2 items-center"
           >
-            Limpar campos <Broom color="#8381D9" />
+            Limpar pesquisa <Broom color="#8381D9" />
           </button>
           <Filters handleCategoryChange={handleCategoriesChange} />
         </div>
-
-        {filteredBooks && filteredBooks.length > 0 ? (
-          <div className=" w-full  flex gap-7   flex-wrap ">
-            {filteredBooks?.map((book) => {
-              return <BookCard key={book.id} isIntheFeed book={book} />
-            })}
+        {isLoading ? (
+          <ExplorerSkeleton /> // Show skeleton component while loading
+        ) : filteredBooks && filteredBooks.length > 0 ? (
+          <div className="w-full flex gap-7 flex-wrap">
+            {filteredBooks?.map((book) => (
+              <BookCard key={book.id} isIntheFeed book={book} />
+            ))}
           </div>
         ) : (
           <div className="w-full h-full flex flex-col gap-4 items-center justify-center">
