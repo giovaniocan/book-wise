@@ -3,7 +3,9 @@ import { Navigator } from '@/components/Navigator'
 import { SearchBar } from '@/components/SearchBar'
 import { Filters } from '@/components/filters'
 import { api } from '@/lib/axios'
+import { Broom } from '@phosphor-icons/react'
 import { useQuery } from '@tanstack/react-query'
+import { set } from 'date-fns'
 import { Binoculars } from 'phosphor-react'
 import { useState } from 'react'
 
@@ -27,6 +29,11 @@ export default function Explorer() {
 
   function handleInputValue(data: string) {
     setSearch(data)
+  }
+
+  function handleResetFilters() {
+    setSelectedCategories([])
+    setSearch('')
   }
 
   const filteredBooks = books?.filter((book) => {
@@ -60,8 +67,15 @@ export default function Explorer() {
             />
           </div>
         </div>
-
-        <Filters handleCategoryChange={handleCategoriesChange} />
+        <div className=" flex flex-col gap-4">
+          <button
+            onClick={handleResetFilters}
+            className="text-purple-100 text-sm font-bold flex gap-2 items-center"
+          >
+            Limpar campos <Broom color="#8381D9" />
+          </button>
+          <Filters handleCategoryChange={handleCategoriesChange} />
+        </div>
 
         {filteredBooks && filteredBooks.length > 0 ? (
           <div className=" w-full  flex gap-7   flex-wrap ">
