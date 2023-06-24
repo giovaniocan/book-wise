@@ -6,6 +6,7 @@ import { Filters } from '@/components/filters'
 import { api } from '@/lib/axios'
 import { Broom } from '@phosphor-icons/react'
 import { useQuery } from '@tanstack/react-query'
+import { NextSeo } from 'next-seo'
 
 import { Binoculars } from 'phosphor-react'
 import { useState } from 'react'
@@ -56,45 +57,51 @@ export default function Explorer() {
   })
 
   return (
-    <div className="h-screen w-screen  flex  ">
-      <Navigator />
-      <div className=" w-full mx-24 mt-[4.25rem]  flex flex-col gap-14 ">
-        <div className="flex items-center justify-between">
-          <div className="flex gap-3">
-            <Binoculars color="#50B2C0" size={32} />
-            <h2 className="font-bold text-2xl">Explorar</h2>
+    <>
+      <NextSeo
+        title=" Explore uma gama do melhores livros | Book Wise !!"
+        description="Aqui estão disponiveis os melhores livro para você comentar, ver e avaliar."
+      />
+      <div className="h-screen w-screen  flex  ">
+        <Navigator />
+        <div className=" w-full mx-24 mt-[4.25rem]  flex flex-col gap-14 ">
+          <div className="flex items-center justify-between">
+            <div className="flex gap-3">
+              <Binoculars color="#50B2C0" size={32} />
+              <h2 className="font-bold text-2xl">Explorar</h2>
+            </div>
+            <div className="w-96">
+              <SearchBar
+                handleInputName={handleInputValue}
+                placeholder="Buscar livro ou autor"
+              />
+            </div>
           </div>
-          <div className="w-96">
-            <SearchBar
-              handleInputName={handleInputValue}
-              placeholder="Buscar livro ou autor"
-            />
+          <div className=" flex flex-col gap-4">
+            <button
+              onClick={handleResetFilters}
+              className="text-purple-100 text-sm font-bold flex gap-2 items-center"
+            >
+              Limpar pesquisa <Broom color="#8381D9" />
+            </button>
+            <Filters handleCategoryChange={handleCategoriesChange} />
           </div>
+          {isLoading ? (
+            <BookSkeleton /> // Show skeleton component while loading
+          ) : filteredBooks && filteredBooks.length > 0 ? (
+            <div className="w-full flex gap-7 flex-wrap">
+              {filteredBooks?.map((book) => (
+                <BookCard key={book.id} isIntheFeed book={book} />
+              ))}
+            </div>
+          ) : (
+            <div className="w-full h-full flex flex-col gap-4 items-center justify-center">
+              <h2 className="font-bold text-3xl">Nenhum livro encontrado</h2>
+              <h3>tente realizar outra pesquisa</h3>
+            </div>
+          )}
         </div>
-        <div className=" flex flex-col gap-4">
-          <button
-            onClick={handleResetFilters}
-            className="text-purple-100 text-sm font-bold flex gap-2 items-center"
-          >
-            Limpar pesquisa <Broom color="#8381D9" />
-          </button>
-          <Filters handleCategoryChange={handleCategoriesChange} />
-        </div>
-        {isLoading ? (
-          <BookSkeleton /> // Show skeleton component while loading
-        ) : filteredBooks && filteredBooks.length > 0 ? (
-          <div className="w-full flex gap-7 flex-wrap">
-            {filteredBooks?.map((book) => (
-              <BookCard key={book.id} isIntheFeed book={book} />
-            ))}
-          </div>
-        ) : (
-          <div className="w-full h-full flex flex-col gap-4 items-center justify-center">
-            <h2 className="font-bold text-3xl">Nenhum livro encontrado</h2>
-            <h3>tente realizar outra pesquisa</h3>
-          </div>
-        )}
       </div>
-    </div>
+    </>
   )
 }

@@ -10,6 +10,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
 import { RatingSkeleton } from '@/components/Skeleton/RatingSkeleton.tsx'
+import { NextSeo } from 'next-seo'
 
 interface Book {
   author: string
@@ -79,54 +80,61 @@ export default function Profile() {
     }
   }, [session.status, router])
   return (
-    <div>
-      <div className="h-screen w-screen  flex  ">
-        <Navigator />
-        <div className=" w-full mx-24 mt-20 flex flex-col gap-10 ">
-          <div className="flex gap-3">
-            <User color="#50B2C0" size={32} />
-            <h2 className="font-bold text-2xl">Perfil</h2>
-          </div>
-          <div className="flex gap-16">
-            <div className="w-full flex flex-col gap-8">
-              <SearchBar
-                handleInputName={handleInputName}
-                placeholder="Buscar livro avaliado"
-              />
-
-              {isLoading ? (
-                <RatingSkeleton />
-              ) : (
-                <div className="w-full flex flex-col gap-6">
-                  {filteredRatings?.map((rating) => {
-                    return (
-                      <ProfileBookCard
-                        key={rating.created_at}
-                        book={rating.book}
-                        createdAt={rating.created_at}
-                        description={rating.description}
-                        rate={rating.rate}
-                      />
-                    )
-                  })}
-                </div>
-              )}
+    <>
+      <NextSeo
+        title="Perfil do Usuario | Book Wise "
+        description="Página do usuario onde você poderá ver todo o historico de atividade "
+        noindex
+      />
+      <div>
+        <div className="h-screen w-screen  flex  ">
+          <Navigator />
+          <div className=" w-full mx-24 mt-20 flex flex-col gap-10 ">
+            <div className="flex gap-3">
+              <User color="#50B2C0" size={32} />
+              <h2 className="font-bold text-2xl">Perfil</h2>
             </div>
+            <div className="flex gap-16">
+              <div className="w-full flex flex-col gap-8">
+                <SearchBar
+                  handleInputName={handleInputName}
+                  placeholder="Buscar livro avaliado"
+                />
 
-            <div className="w-96">
-              <ProfileInfo
-                name={userProfile?.user.name || ''}
-                createdAt={userProfile?.user?.created_at || ''}
-                image={userProfile?.user.avatar_url || ''}
-                ratedBooks={userProfile?.ratedBooks || 0}
-                totalPages={userProfile?.readPages || 0}
-                authorsRead={userProfile?.readAuthors || 0}
-                mostCategory={userProfile?.mostReadCategory || ''}
-              />
+                {isLoading ? (
+                  <RatingSkeleton />
+                ) : (
+                  <div className="w-full flex flex-col gap-6">
+                    {filteredRatings?.map((rating) => {
+                      return (
+                        <ProfileBookCard
+                          key={rating.created_at}
+                          book={rating.book}
+                          createdAt={rating.created_at}
+                          description={rating.description}
+                          rate={rating.rate}
+                        />
+                      )
+                    })}
+                  </div>
+                )}
+              </div>
+
+              <div className="w-96">
+                <ProfileInfo
+                  name={userProfile?.user.name || ''}
+                  createdAt={userProfile?.user?.created_at || ''}
+                  image={userProfile?.user.avatar_url || ''}
+                  ratedBooks={userProfile?.ratedBooks || 0}
+                  totalPages={userProfile?.readPages || 0}
+                  authorsRead={userProfile?.readAuthors || 0}
+                  mostCategory={userProfile?.mostReadCategory || ''}
+                />
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }
